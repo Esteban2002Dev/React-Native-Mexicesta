@@ -1,9 +1,12 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../config/Colors';
 import { SmallButton } from '../../components/shared/SmallButton';
+import { useAppNavigation } from '../../hooks/useAppNaviagtion';
 
 export function CartListScreen() {
+    const navigation = useAppNavigation();
+
     return (
         <View>
             <Text style={Styles.title} numberOfLines={1} lineBreakMode='clip'>Lista de compras</Text>
@@ -18,7 +21,7 @@ export function CartListScreen() {
                 <SmallButton
                 message='Nueva lista'
                 color='aqua'
-                onPress={() => console.log('NewTask')}
+                onPress={() => navigation.navigate('NewCart')}
                 disabled={false}
                 iconName='add' />
             </View>
