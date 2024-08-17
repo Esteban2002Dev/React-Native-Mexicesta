@@ -12,13 +12,15 @@ export function CartListScreen() {
                 message='Filtrar'
                 color='purple'
                 onPress={() => console.log('Filtro')}
-                disabled={false} />
+                disabled={false}
+                iconName='filter' />
 
                 <SmallButton
                 message='Nueva lista'
                 color='aqua'
                 onPress={() => console.log('NewTask')}
-                disabled={false} />
+                disabled={false}
+                iconName='add' />
             </View>
         </View>
     )
