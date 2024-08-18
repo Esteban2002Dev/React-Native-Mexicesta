@@ -1,10 +1,11 @@
-import { View, Text, Pressable, StyleSheet, ViewStyle, StyleProp, ImageBackground } from 'react-native'
+import { View, Text, Pressable, StyleSheet, ImageBackground } from 'react-native'
 import React from 'react'
-import { Colors } from '../../../config/Colors';
+import { Colors } from '../../../config/theme/Colors';
 import { SmallButton } from '../../components/shared/SmallButton';
 import { useAppNavigation } from '../../hooks/useAppNavigation';
 import { IonIcon } from '../../components/shared/IonIcon';
 import { ScrollView } from 'react-native-gesture-handler';
+import { globalStyles } from '../../../config/theme/globalStyles';
 
 export function CartListScreen() {
     const { navigation } = useAppNavigation();
@@ -12,7 +13,7 @@ export function CartListScreen() {
     return (
         <ScrollView>
             <View>
-                <Text style={Styles.title} numberOfLines={1} lineBreakMode='clip'>Lista de compras</Text>
+                <Text style={globalStyles.title} numberOfLines={1} lineBreakMode='clip'>Lista de compras</Text>
                 <View style={Styles.buttonsContainer}>
                     <SmallButton
                     message='Filtrar'
@@ -89,14 +90,6 @@ function RenderCartItem({
 }
 
 const Styles = StyleSheet.create({
-    title: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20,
-        marginVertical: 5,
-        color: Colors.text
-    },
     buttonsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',

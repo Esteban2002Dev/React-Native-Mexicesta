@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { StackHeaderProps } from '@react-navigation/stack';
 import { IonIcon } from './shared/IonIcon';
 import { useAppNavigation } from '../hooks/useAppNavigation';
-import { Colors } from '../../config/Colors';
+import { Colors } from '../../config/theme/Colors';
 
 type StackNavbarProps = StackHeaderProps;
 export function StackNavbar({

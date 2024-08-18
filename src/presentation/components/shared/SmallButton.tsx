@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Pressable, StyleSheet } from 'react-native'
-import { Colors } from '../../../config/Colors'
+import { Colors } from '../../../config/theme/Colors'
 import { IonIcon } from './IonIcon';
 
 interface Props {
