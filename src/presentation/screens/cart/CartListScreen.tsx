@@ -7,7 +7,7 @@ import { IonIcon } from '../../components/shared/IonIcon';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export function CartListScreen() {
-    const navigation = useAppNavigation();
+    const { navigation } = useAppNavigation();
 
     return (
         <ScrollView>
@@ -30,24 +30,38 @@ export function CartListScreen() {
                 </View>
 
                 <View>
-                    <RenderCartItem />
-                    <RenderCartItem />
-                    <RenderCartItem />
-                    <RenderCartItem />
-                    <RenderCartItem />
-                    <RenderCartItem />
-                    <RenderCartItem />
-                    <RenderCartItem />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd123123123123123' })} />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
+                    <RenderCartItem
+                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
                 </View>
             </View>
         </ScrollView>
     )
 }
 
-function RenderCartItem() {
+interface RenderItemProps {
+    onPress: () => void;
+    onLongPress?: () => void;
+}
+function RenderCartItem({
+    onPress
+}: RenderItemProps) {
     return(
         <Pressable
-        onPress={() => console.log('Item details')}
+        onPress={onPress}
         onLongPress={() => console.log('on item logn press')}
         android_ripple={{ color: Colors.dark[200], borderless: false }}>
             <View style={cartItemStyles.container}>
