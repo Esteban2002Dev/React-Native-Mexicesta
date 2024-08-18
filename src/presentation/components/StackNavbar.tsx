@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { StackHeaderProps } from '@react-navigation/stack';
 import { IonIcon } from './shared/IonIcon';
-import { useAppNavigation } from '../hooks/useAppNaviagtion';
+import { useAppNavigation } from '../hooks/useAppNavigation';
 import { Colors } from '../../config/Colors';
 
 type StackNavbarProps = StackHeaderProps;
