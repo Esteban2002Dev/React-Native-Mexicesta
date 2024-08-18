@@ -2,6 +2,7 @@ import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/
 import { CartListScreen } from '../screens/cart/CartListScreen';
 import { Colors } from '../../config/Colors';
 import { NewCartScreen } from '../screens/cart/NewCartScreen';
+import { StackNavbar } from '../components/StackNavbar';
 
 export type RootStackParams = {
     CartList: undefined;
@@ -11,14 +12,16 @@ export type RootStackParams = {
 const Stack = createStackNavigator();
 export function StackNavigator() {
     return (
-        <Stack.Navigator screenOptions={{
+        <Stack.Navigator
+        screenOptions={{
             cardStyle: {
                 backgroundColor: Colors.background,
             },
             cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+            header: (props) => <StackNavbar {... props} />,
         }}>
-            <Stack.Screen name="CartList" component={CartListScreen} />
-            <Stack.Screen name="NewCart" component={NewCartScreen} />
+            <Stack.Screen options={{title: 'Mi Lista'}} name="CartList" component={CartListScreen} />
+            <Stack.Screen options={{title: 'Nuevo carrito'}} name="NewCart" component={NewCartScreen} />
         </Stack.Navigator>
     );
 }
