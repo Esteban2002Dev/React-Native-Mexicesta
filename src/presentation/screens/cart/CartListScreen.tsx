@@ -2,7 +2,7 @@ import { View, Text, Pressable, StyleSheet, ViewStyle, StyleProp, ImageBackgroun
 import React from 'react'
 import { Colors } from '../../../config/Colors';
 import { SmallButton } from '../../components/shared/SmallButton';
-import { useAppNavigation } from '../../hooks/useAppNaviagtion';
+import { useAppNavigation } from '../../hooks/useAppNavigation';
 import { IonIcon } from '../../components/shared/IonIcon';
 import { ScrollView } from 'react-native-gesture-handler';
 
