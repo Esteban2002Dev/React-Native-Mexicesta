@@ -9,7 +9,7 @@ type StackNavbarProps = StackHeaderProps;
 export function StackNavbar({
     options,
 }: StackNavbarProps) {
-    const navigation = useAppNavigation();
+    const { navigation } = useAppNavigation();
     const title = options.title ? options.title : 'Mi carrito';
 
     return (
