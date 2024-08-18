@@ -6,8 +6,11 @@ export const globalStyles = StyleSheet.create({
         fontSize: 35,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20,
-        marginVertical: 5,
+        marginTop: 5,
         color: Colors.text
+    },
+    subtitle: {
+        fontSize: 15,
+        textAlign: 'center',
     },
 });
