@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Colors } from '../../../config/Colors';
+import { Colors } from '../../../config/theme/Colors';
 
 interface Props {
     name: string;
