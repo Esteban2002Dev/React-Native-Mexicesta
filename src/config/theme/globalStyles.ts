@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "./Colors";
 
+export const fonts = {
+    regular: 'RalewayRegular',
+    italic: 'RalewayItalic',
+    bold: 'RalewayBold',
+};
+
 export const globalStyles = StyleSheet.create({
     title: {
         fontSize: 35,
