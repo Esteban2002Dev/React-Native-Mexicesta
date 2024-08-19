@@ -8,6 +8,9 @@ export const fonts = {
 };
 
 export const globalStyles = StyleSheet.create({
+    mainContainer: {
+        marginTop: 75
+    },
     title: {
         fontSize: 35,
         fontWeight: 'bold',
