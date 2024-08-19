@@ -10,6 +10,7 @@ import { WavyLine } from '../../components/shared/WavyLine';
 import { Item } from '../../../data/interfaces/item.interface';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Image } from 'react-native';
+import { BackgroundGradient } from '../../components/BackgroundGradient';
 
 const cart: Cart = {
     id: '1234',
@@ -109,46 +110,49 @@ export function CartDetailsScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={globalStyles.title} numberOfLines={1}>Carrito #444</Text>
-            <Text style={globalStyles.subtitle}>Creado el Martes 25 de mayo del 2024.</Text>
-            <View style={styles.sectionTitleContainer}>
-                <IonIcon
-                    style={{ marginHorizontal: 15 }}
-                    name='cart'
-                    color={Colors.dark[950]}
-                    size={35}
-                />
-                <View>
-                    <Text style={styles.sectionTitle}>{cart.title}</Text>
+            <BackgroundGradient />
+            <View style={[styles.container, globalStyles.mainContainer]}>
+                <Text style={globalStyles.title} numberOfLines={1}>Carrito #444</Text>
+                <Text style={globalStyles.subtitle}>Creado el Martes 25 de mayo del 2024.</Text>
+                <View style={styles.sectionTitleContainer}>
+                    <IonIcon
+                        style={{ marginHorizontal: 15 }}
+                        name='cart'
+                        color={Colors.dark[950]}
+                        size={35}
+                    />
                     <View>
-                        <Text style={statusStyles}>Estado: {cart.status}</Text>
-                        {cart.status === Status.CANCELLED && (
-                            <WavyLine stroke={Colors.dark[300]} strokeWidth='3' width={120} height={20} />
-                        )}
+                        <Text style={styles.sectionTitle}>{cart.title}</Text>
+                        <View>
+                            <Text style={statusStyles}>Estado: {cart.status}</Text>
+                            {cart.status === Status.CANCELLED && (
+                                <WavyLine stroke={Colors.dark[300]} strokeWidth='3' width={120} height={20} />
+                            )}
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={{padding: 10}}>
-                <Text style={styles.sectionTitle}>Descripcion:</Text>
-                <Text>{cart.description}</Text>
-            </View>
-            <View style={cartItemStyles.sectionContainer}>
-                <View style={cartItemStyles.headerContainer}>
-                    <View style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <IonIcon name='receipt' color={Colors.aqua[950]} />
-                        <Text style={cartItemStyles.sectionTitle}>Cosas a comprar:</Text>
+                <View style={{padding: 10}}>
+                    <Text style={styles.sectionTitle}>Descripcion:</Text>
+                    <Text>{cart.description}</Text>
+                </View>
+                <View style={cartItemStyles.sectionContainer}>
+                    <View style={cartItemStyles.headerContainer}>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <IonIcon name='receipt' color={Colors.aqua[950]} />
+                            <Text style={cartItemStyles.sectionTitle}>Cosas a comprar:</Text>
+                        </View>
                     </View>
-                </View>
-                <View style={cartItemStyles.listContainer}>
-                    <ScrollView>
-                        {cart.items?.map((item: Item) => <RenderCartItem {... item} />)}
-                    </ScrollView>
-                </View>
+                    <View style={cartItemStyles.listContainer}>
+                        <ScrollView>
+                            {cart.items?.map((item: Item) => <RenderCartItem {... item} />)}
+                        </ScrollView>
+                    </View>
 
+                </View>
             </View>
         </View>
     );

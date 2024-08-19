@@ -6,13 +6,15 @@ import { useAppNavigation } from '../../hooks/useAppNavigation';
 import { IonIcon } from '../../components/shared/IonIcon';
 import { ScrollView } from 'react-native-gesture-handler';
 import { globalStyles } from '../../../config/theme/globalStyles';
+import { BackgroundGradient } from '../../components/BackgroundGradient';
 
 export function CartListScreen() {
     const { navigation } = useAppNavigation();
 
     return (
         <ScrollView>
-            <View>
+            <BackgroundGradient />
+            <View style={globalStyles.mainContainer}>
                 <Text style={globalStyles.title} numberOfLines={1} lineBreakMode='clip'>Lista de compras</Text>
                 <View style={Styles.buttonsContainer}>
                     <SmallButton
