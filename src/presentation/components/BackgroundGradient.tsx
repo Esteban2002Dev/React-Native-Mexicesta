@@ -2,13 +2,28 @@ import React from 'react'
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-export  function BackgroundGradient() {
+/**
+ * * https://www.npmjs.com/package/react-native-linear-gradient
+ */
+
+interface Props {
+    colors: string[];
+    start: { x: number, y: number };
+    end: { x: number, y: number };
+    style?: object;
+}
+export  function BackgroundGradient({
+    colors,
+    start,
+    end,
+    style
+}: Props) {
     return (
         <LinearGradient
-            style={styles.background}
-            colors={['#65DE80', '#95BED6', '#D0A7DE']}
-            start={{ x: 1, y: 0 }}
-            end={{ x: 0, y: 1 }}
+            style={[styles.background, style]}
+            colors={colors}
+            start={start}
+            end={end}
         />
     )
 }

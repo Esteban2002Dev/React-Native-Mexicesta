@@ -1,36 +1,30 @@
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
 import React from 'react'
-import { StackHeaderProps } from '@react-navigation/stack';
+import { View, StyleSheet, Image, Pressable } from 'react-native'
 import { useAppNavigation } from '../hooks/useAppNavigation';
 import { IonIcon } from './shared/IonIcon';
 import { Color_palette } from '../../config/theme/Colors';
 import BackButton from './BackButton';
 
-type StackNavbarProps = StackHeaderProps;
-export function AppBar({
-    options,
-}: StackNavbarProps) {
-
+export function AppBar() {
     const { navigation } = useAppNavigation();
-    const title = options.title;
 
     return (
-        <View style={styles.appBarContainer}>
-            <View style={styles.leftSide}>
-                {navigation.canGoBack() && (
-                    <BackButton />
-                )}
-            </View>
-            <View style={styles.rightSide}>
-                {title 
-                    ? <Text>{title}</Text> 
-                    : <Image source={require('../../../assets/images/logo.png')} /> 
-                }
-                <Pressable style={({pressed}) => ({
-                    opacity: pressed ? .7 : 1
-                })}>
-                    <IonIcon name='ellipsis-vertical' color={Color_palette.dark} size={30} />
-                </Pressable>
+        <View>
+            <View style={styles.appBarContainer}>
+                <View style={styles.leftSide}>
+                    {navigation.canGoBack() && (
+                        <BackButton />
+                    )}
+                </View>
+                <View style={styles.rightSide}>
+                    <Image source={require('../../../assets/images/logo.png')} />
+                    <Pressable
+                    style={({pressed}) => ({
+                        opacity: pressed ? .7 : 1
+                    })}>
+                        <IonIcon name='ellipsis-vertical' color={Color_palette.dark} size={30} />
+                    </Pressable>
+                </View>
             </View>
         </View>
     )
@@ -38,7 +32,7 @@ export function AppBar({
 
 const styles = StyleSheet.create({
     appBarContainer: {
-        height: 75,
+        height: 90,
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
