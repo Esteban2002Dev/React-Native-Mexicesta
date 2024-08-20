@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, Image, Pressable } from 'react-native'
+import { View, StyleSheet, Image, Pressable, Text } from 'react-native'
 import { useAppNavigation } from '../hooks/useAppNavigation';
 import { IonIcon } from './shared/IonIcon';
 import { Color_palette } from '../../config/theme/Colors';
 import BackButton from './BackButton';
+import { fonts } from '../../config/theme/globalStyles';
 
 export function AppBar() {
     const { navigation } = useAppNavigation();
@@ -17,7 +18,7 @@ export function AppBar() {
                     )}
                 </View>
                 <View style={styles.rightSide}>
-                    <Image source={require('../../../assets/images/logo.png')} />
+                    <Text style={styles.title}>Cart{'\n'}Control</Text>
                     <Pressable
                     style={({pressed}) => ({
                         opacity: pressed ? .7 : 1
@@ -43,9 +44,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         right: 0,
         padding: 5,
-        gap: 10,
+        gap: 4,
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    title: {
+        fontFamily: fonts.extraBoldItalic,
+        lineHeight: 14,
+        paddingTop: 14,
+        fontSize: 24,
+        color: Color_palette.dark,
+        textAlign: 'right'
     },
     leftSide: {
         position: 'absolute',
