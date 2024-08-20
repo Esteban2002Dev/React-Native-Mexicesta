@@ -5,12 +5,11 @@ export const fonts = {
     regular: 'RalewayRegular',
     italic: 'RalewayItalic',
     bold: 'RalewayBold',
+    extraBold: 'RalewayBlack',
+    extraBoldItalic: 'RalewayBlackItalic',
 };
 
 export const globalStyles = StyleSheet.create({
-    mainContainer: {
-        marginTop: 75
-    },
     title: {
         fontSize: 35,
         fontWeight: 'bold',
