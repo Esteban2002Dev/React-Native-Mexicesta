@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 import { Background_colors, Color_palette } from '../../../config/theme/Colors';
 import { useAppNavigation } from '../../hooks/useAppNavigation';
 import { BackgroundGradient } from '../../components/BackgroundGradient';
@@ -92,6 +92,7 @@ const cart: Cart = {
     ],
     created_at: 'Martes 25 de Junio del 2024'
 };
+
 export function CartListScreen() {
     const { navigation } = useAppNavigation();
 
@@ -106,34 +107,49 @@ export function CartListScreen() {
                 start={{ x: 1, y: 0 }}
                 end={{ x: 0, y: 1 }}
             />
-            <AppBar />
-            <View style={styles.infoContainer}>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>
-                        Tus {'\n'}
-                        Compras
-                    </Text>
-                    <Text style={styles.description}>
-                        Aqui apareceran todas las listas de compras que hayas creado y podras crear nuevas.
-                    </Text>
+            <ScrollView>
+                <AppBar />
+                <View style={styles.infoContainer}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.title}>
+                            Tus {'\n'}
+                            Compras
+                        </Text>
+                        <Text style={styles.description}>
+                            Aqui apareceran todas las listas de compras que hayas creado y podras crear nuevas.
+                        </Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton 
+                            label='Nuevo carrito'
+                            onPress={() => navigation.navigate('NewCart')}
+                            color={Color_palette.dark}
+                        >
+                            <IonIcon name='cart' />
+                        </PrimaryButton>
+                    </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton 
-                    label='Nuevo carrito'
-                    onPress={() => navigation.navigate('NewCart')}
-                    color={Color_palette.dark}>
-                        <IonIcon name='cart' />
-                    </PrimaryButton>
+                <View style={styles.contentContainer}>
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
+                    <CartItem cart={cart} />
                 </View>
-            </View>
-            <View style={styles.contentContainer}>
-                <CartItem cart={cart} />
-                <CartItem cart={cart} />
-                <CartItem cart={cart} />
-                <CartItem cart={cart} />
-            </View>
+            </ScrollView>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -159,6 +175,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     contentContainer: {
-        marginHorizontal: 8,
+        marginHorizontal: 10,
     }
 });
