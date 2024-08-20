@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     container: {
         width: '100%',
-        minHeight: '15%',
+        minHeight: 120,
         borderRadius: 15,
         padding: 5,
         overflow: 'hidden',
