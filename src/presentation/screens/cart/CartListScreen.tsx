@@ -1,140 +1,71 @@
-import { View, Text, Pressable, StyleSheet, ImageBackground } from 'react-native'
 import React from 'react'
-import { Colors } from '../../../config/theme/Colors';
-import { SmallButton } from '../../components/shared/SmallButton';
+import { View, StyleSheet, Text } from 'react-native'
+import { Background_colors, Color_palette } from '../../../config/theme/Colors';
 import { useAppNavigation } from '../../hooks/useAppNavigation';
-import { IonIcon } from '../../components/shared/IonIcon';
-import { ScrollView } from 'react-native-gesture-handler';
-import { globalStyles } from '../../../config/theme/globalStyles';
 import { BackgroundGradient } from '../../components/BackgroundGradient';
+import { AppBar } from '../../components/AppBar';
+import { fonts, globalStyles } from '../../../config/theme/globalStyles';
+import PrimaryButton from '../../components/shared/PrimaryButton';
+import { IonIcon } from '../../components/shared/IonIcon';
 
 export function CartListScreen() {
     const { navigation } = useAppNavigation();
 
     return (
-        <ScrollView>
-            <BackgroundGradient />
-            <View style={globalStyles.mainContainer}>
-                <Text style={globalStyles.title} numberOfLines={1} lineBreakMode='clip'>Lista de compras</Text>
-                <View style={Styles.buttonsContainer}>
-                    <SmallButton
-                    message='Filtrar'
-                    color='purple'
-                    onPress={() => console.log('Filtro')}
-                    disabled={false}
-                    iconName='filter' />
-
-                    <SmallButton
-                    message='Nueva lista'
-                    color='aqua'
+        <View style={globalStyles.container}>
+            <BackgroundGradient
+                colors={[
+                    Background_colors.pistache.base,
+                    Background_colors.sky.base,
+                    Background_colors.berry.base
+                ]}
+                start={{ x: 1, y: 0 }}
+                end={{ x: 0, y: 1 }}
+            />
+            <AppBar />
+            <View style={styles.contentContainer}>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>
+                        Tus {'\n'}
+                        Compras
+                    </Text>
+                    <Text style={styles.description}>
+                        Aqui apareceran todas las listas de compras que hayas creado y podras crear nuevas.
+                    </Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton 
+                    label='Nuevo carrito'
                     onPress={() => navigation.navigate('NewCart')}
-                    disabled={false}
-                    iconName='add' />
-                </View>
-
-                <View>
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd123123123123123' })} />
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
-                    <RenderCartItem
-                        onPress={() => navigation.navigate('CartDetails', { cartId: 'asd' })} />
+                    color={Color_palette.dark}>
+                        <IonIcon name='cart' />
+                    </PrimaryButton>
                 </View>
             </View>
-        </ScrollView>
+        </View>
     )
 }
 
-interface RenderItemProps {
-    onPress: () => void;
-    onLongPress?: () => void;
-}
-function RenderCartItem({
-    onPress
-}: RenderItemProps) {
-    return(
-        <Pressable
-        onPress={onPress}
-        onLongPress={() => console.log('on item logn press')}
-        android_ripple={{ color: Colors.dark[200], borderless: false }}>
-            <View style={cartItemStyles.container}>
-                <View style={cartItemStyles.backgroundWrapper}>
-                    <ImageBackground
-                        source={require('../../../../assets/images/hexagons.png')}
-                        style={cartItemStyles.backgroundPattern}
-                        resizeMode="repeat"
-                    />
-                </View>
-                <View style={cartItemStyles.cartItem}>
-                    <View>
-                        <Text style={cartItemStyles.cartTitle}>1° Utiles escolares</Text>
-                        <Text style={cartItemStyles.cartSmallText}>Creada el 19/08/2024.</Text>
-                        <Text style={cartItemStyles.cartSmallText}>15 objetos agregados.</Text>
-                        <Text style={cartItemStyles.cartSmallText}>Estado: Pendiente por terminar.</Text>
-                    </View>
-                    <View style={cartItemStyles.iconContainer}>
-                        <IonIcon name='chevron-forward' size={35} color={Colors.dark[950]} />
-                    </View>
-                </View>
-            </View>
-        </Pressable>
-    )
-}
-
-const Styles = StyleSheet.create({
-    buttonsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        marginBottom: 10
+const styles = StyleSheet.create({
+    contentContainer: {
+        padding: 15,
+    },
+    titleContainer: {
+        marginTop: 5
+    },
+    title: {
+        color: Color_palette.dark,
+        fontFamily: fonts.extraBold,
+        fontSize: 55,
+        letterSpacing: -0.5,
+        lineHeight: 50,
+    },
+    description: {
+        color: Color_palette.dark,
+        fontFamily: fonts.regular,
+    },
+    buttonContainer: {
+        marginTop: 10,
+        marginBottom: 10,
     }
-});
-
-const cartItemStyles = StyleSheet.create({
-    container: {
-        position: 'relative',
-        overflow: 'hidden',
-        borderColor: Colors.dark[400],
-        borderTopWidth: .5,
-        borderBottomWidth: 1
-    },
-    backgroundWrapper: {
-        ...StyleSheet.absoluteFillObject,
-        opacity: 0.1,
-    },
-    backgroundPattern: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-    },
-    cartItem: {
-        minHeight: 80,
-        padding: 8,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        position: 'relative',
-    },
-    cartTitle: {
-        color: Colors.dark[950],
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    cartSmallText: {
-        color: Colors.dark[950],
-        fontSize: 14,
-    },
-    iconContainer: {
-        justifyContent: 'center',
-    },
 });

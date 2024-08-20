@@ -10,6 +10,9 @@ export const fonts = {
 };
 
 export const globalStyles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     title: {
         fontSize: 35,
         fontWeight: 'bold',

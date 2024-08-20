@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Image, Pressable, Text } from 'react-native'
+import { View, StyleSheet, Pressable, Text } from 'react-native'
 import { useAppNavigation } from '../hooks/useAppNavigation';
 import { IonIcon } from './shared/IonIcon';
 import { Color_palette } from '../../config/theme/Colors';
