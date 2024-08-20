@@ -18,9 +18,8 @@ export function StackNavigator() {
     return (
         <Stack.Navigator
         screenOptions={{
-            headerTransparent: true,
+            headerShown: false,
             cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
-            header: (props) => <AppBar {... props} />,
         }}>
             <Stack.Screen options={{title: ''}} name="CartList" component={CartListScreen} />
             <Stack.Screen options={{title: 'Nuevo carrito'}} name="NewCart" component={NewCartScreen} />

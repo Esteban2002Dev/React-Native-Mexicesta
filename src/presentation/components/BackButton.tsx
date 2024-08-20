@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingStart: 7,
         backgroundColor: Color_palette.green.base,
+        marginHorizontal: 15,
 
 
         // Para Android
