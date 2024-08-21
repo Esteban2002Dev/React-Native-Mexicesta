@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "./Colors";
+import { Color_palette } from "./Colors";
 
 export const fonts = {
     regular: 'RalewayRegular',
@@ -18,7 +18,7 @@ export const globalStyles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 5,
-        color: Colors.text
+        color: Color_palette.dark
     },
     subtitle: {
         fontSize: 15,

@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Colors } from '../../../config/theme/Colors';
-import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import { Color_palette } from '../../../config/theme/Colors';
+import { TextStyle, ViewStyle } from 'react-native';
 
 interface Props {
     name: string;
@@ -12,7 +12,7 @@ interface Props {
 export function IonIcon({
     name,
     size = 20,
-    color = Colors.purple[100],
+    color = Color_palette.white,
     style
 }: Props) {
     const defaultStyle: ViewStyle = {
