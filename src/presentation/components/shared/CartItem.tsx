@@ -41,7 +41,7 @@ export function CartItem({
             transform: [{ scale: scaleAnim }]
         }}>
             <Pressable
-            onPress={() => navigation.navigate('CartDetails', {cartId: cart.id})}
+            onPress={() => navigation.navigate('CartDetails', {cartId: cart.id, index})}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
             style={({pressed}) => ({
@@ -65,13 +65,13 @@ export function CartItem({
 
 const styles = StyleSheet.create({
     itemBackground: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
         backgroundColor: Color_palette.white,
+        position: 'absolute',
         opacity: .3,
+        bottom: 0,
+        right: 0,
+        left: 0,
+        top: 0,
     },
     container: {
         width: '100%',
