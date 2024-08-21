@@ -7,7 +7,8 @@ export type RootStackParams = {
     CartList: undefined;
     NewCart: undefined;
     CartDetails: {
-        cartId: string
+        cartId: string,
+        index: number
     };
 }
 
