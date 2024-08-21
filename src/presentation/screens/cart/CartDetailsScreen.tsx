@@ -14,7 +14,7 @@ const cart: Cart = {
     id: '1234',
     title: 'Compras del tianguis.',
     description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-    status: Status.PENDING,
+    status: Status.CANCELLED,
     items: [
         {
             id: 1,
@@ -117,11 +117,11 @@ export function CartDetailsScreen() {
                         </View>
                         <View style={styles.rightSide}>
                             {cart.status === Status.CANCELLED
-                            ? <IonIcon name='warning' color={Color_messages.danger} size={40} />
+                            ? <IonIcon style={{alignSelf: 'center'}} name='warning' color={Color_messages.danger} size={40} />
                             : cart.status === Status.COMPLETED 
-                            ? <IonIcon name='checkmark-circle' color={Color_messages.success} size={40} />
+                            ? <IonIcon style={{alignSelf: 'center'}} name='checkmark-circle' color={Color_messages.success} size={40} />
                             : cart.status === Status.PENDING
-                            ? <IonIcon name='time' color={Color_messages.info} size={40} />
+                            ? <IonIcon style={{alignSelf: 'center'}} name='time' color={Color_messages.info} size={40} />
                             : null}
                         </View>
                     </View>
@@ -155,8 +155,7 @@ const styles = StyleSheet.create({
     rightSide: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        padding: 5
+        padding: 5,
     },
     subtitle: {
         color: Color_palette.dark,
