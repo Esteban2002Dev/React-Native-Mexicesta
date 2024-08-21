@@ -8,9 +8,11 @@ import { useAppNavigation } from '../../hooks/useAppNavigation';
 
 interface Props {
     cart: Cart;
+    index: number;
 }
 export function CartItem({
-    cart
+    cart,
+    index
 }: Props) {
     const {navigation} = useAppNavigation();
     const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -48,7 +50,7 @@ export function CartItem({
             })}>
                 <View style={styles.itemBackground} />
                 <View style={styles.leftSide}>
-                    <Text adjustsFontSizeToFit numberOfLines={1} style={styles.numberText}>{cart.id}</Text>
+                    <Text adjustsFontSizeToFit numberOfLines={1} style={styles.numberText}>{index}</Text>
                 </View>
                 <View style={styles.rightSide}>
                     <Text style={styles.title}>{cart.title}</Text>
