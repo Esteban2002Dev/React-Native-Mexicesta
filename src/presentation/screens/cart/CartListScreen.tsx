@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Background_colors, Color_palette } from '../../../config/theme/Colors';
+import { Color_palette } from '../../../config/theme/Colors';
 import { useAppNavigation } from '../../hooks/useAppNavigation';
 import { BackgroundGradient } from '../../components/BackgroundGradient';
 import { AppBar } from '../../components/AppBar';
@@ -8,177 +8,16 @@ import { fonts, globalStyles } from '../../../config/theme/globalStyles';
 import PrimaryButton from '../../components/shared/PrimaryButton';
 import { IonIcon } from '../../components/shared/IonIcon';
 import { CartItem } from '../../components/shared/CartItem';
-import { Status } from '../../../data/enums/status.enum';
-import { Cart } from '../../../data/interfaces/cart.interfaces';
 import { ScrollView } from 'react-native-gesture-handler';
-
-const cart: Cart[] = [
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.COMPLETED,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.PENDING,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.CANCELLED,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.COMPLETED,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.PENDING,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.CANCELLED,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.COMPLETED,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.PENDING,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-    {
-        id: '0001',
-        title: 'Compras del tianguis.',
-        description: 'Soy una descripcion de ejemplo que debe ser muy larga para testear como se veria si fuera muuuuy larga we.',
-        status: Status.CANCELLED,
-        items: [
-            {
-                id: 1,
-                name: 'Product 1',
-                price: 10,
-                quantity: 2,
-                image: 'https://example.com/product1.jpg',
-                description: 'Soy un Producto de prueba con una descripcion muuuuuuuy larga para ver si es posible que se vea bien o nadotototota.',
-                status: Status.PENDING
-            },
-        ],
-        created_at: 'Martes 25 de Junio del 2024'
-    },
-];
+import { useCart } from '../../store/cart-store-';
 
 export function CartListScreen() {
     const { navigation } = useAppNavigation();
+    const { setCarts, allCarts } = useCart();
+
+    useEffect(() => {
+        setCarts();
+    }, []);
 
     return (
         <View style={globalStyles.container}>
@@ -199,15 +38,14 @@ export function CartListScreen() {
                         <PrimaryButton 
                             label='Nuevo carrito'
                             onPress={() => navigation.navigate('NewCart')}
-                            color={Color_palette.dark}
-                        >
+                            color={Color_palette.dark}>
                             <IonIcon name='cart' />
                         </PrimaryButton>
                     </View>
                 </View>
                 <View style={styles.contentContainer}>
-                    {cart && cart.map(cart => (
-                        <CartItem cart={cart} />
+                    {allCarts && allCarts.map((cart, index) => (
+                        <CartItem cart={cart} index={index} />
                     ))}
                 </View>
             </ScrollView>
