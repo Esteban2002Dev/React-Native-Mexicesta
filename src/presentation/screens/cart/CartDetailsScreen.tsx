@@ -9,6 +9,7 @@ import { BackgroundGradient } from '../../components/BackgroundGradient';
 import { AppBar } from '../../components/AppBar';
 import { IonIcon } from '../../components/shared/IonIcon';
 import { useCart } from '../../store/cart-store-';
+import { ItemComponent } from '../../components/shared/ItemComponent';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
@@ -81,31 +82,45 @@ export function CartDetailsScreen() {
         <View style={globalStyles.container}>
             <BackgroundGradient />
             <ScrollView>
-                <AppBar />
                 <View style={styles.infoContainer}>
-                    <View style={styles.titleContainer}>
-                        <Text numberOfLines={2} adjustsFontSizeToFit style={styles.title}>
-                            {cart.title}
-                        </Text>
+                    <BackgroundGradient 
+                    colors={[
+                        Color_palette.white,
+                        Color_palette.white,
+                    ]} style={{opacity: .8}} />
+                    <AppBar />
+                    <View style={{
+                        padding: 15,
+                    }}>
+                        <View style={styles.titleContainer}>
+                            <Text numberOfLines={2} adjustsFontSizeToFit style={styles.title}>
+                                {cart.title}
+                            </Text>
+                        </View>
+                        <View style={styles.contentContainer}>
+                            <View style={styles.leftSide}>
+                                <Text style={styles.subtitle}>
+                                    Carrito #{number}
+                                </Text>
+                                <Text style={styles.description}>
+                                    {cart.description}
+                                </Text>
+                            </View>
+                            <View style={styles.rightSide}>
+                                {cart.status === Status.CANCELLED
+                                ? <IonIcon style={{alignSelf: 'center'}} name='warning' color={Color_messages.danger} size={40} />
+                                : cart.status === Status.COMPLETED 
+                                ? <IonIcon style={{alignSelf: 'center'}} name='checkmark-circle' color={Color_messages.success} size={40} />
+                                : cart.status === Status.PENDING
+                                ? <IonIcon style={{alignSelf: 'center'}} name='time' color={Color_messages.info} size={40} />
+                                : null}
+                            </View>
+                        </View>
                     </View>
-                    <View style={styles.contentContainer}>
-                        <View style={styles.leftSide}>
-                            <Text style={styles.subtitle}>
-                                Carrito #{number}
-                            </Text>
-                            <Text style={styles.description}>
-                                {cart.description}
-                            </Text>
-                        </View>
-                        <View style={styles.rightSide}>
-                            {cart.status === Status.CANCELLED
-                            ? <IonIcon style={{alignSelf: 'center'}} name='warning' color={Color_messages.danger} size={40} />
-                            : cart.status === Status.COMPLETED 
-                            ? <IonIcon style={{alignSelf: 'center'}} name='checkmark-circle' color={Color_messages.success} size={40} />
-                            : cart.status === Status.PENDING
-                            ? <IonIcon style={{alignSelf: 'center'}} name='time' color={Color_messages.info} size={40} />
-                            : null}
-                        </View>
+                </View>
+                <View style={styles.itemsContainer}>
+                    <View>
+                        {cart.items?.map(item => <ItemComponent item={item} />)}
                     </View>
                 </View>
             </ScrollView>
@@ -115,7 +130,9 @@ export function CartDetailsScreen() {
 
 const styles = StyleSheet.create({
     infoContainer: {
-        padding: 15,
+        borderBottomEndRadius: 20,
+        borderBottomStartRadius: 20,
+        overflow: 'hidden',
     },
     titleContainer: {
         marginTop: 5
@@ -148,5 +165,8 @@ const styles = StyleSheet.create({
         color: Color_palette.dark,
         fontFamily: fonts.regular,
     },
+    itemsContainer: {
+        padding: 15,
+    }
 });
 
