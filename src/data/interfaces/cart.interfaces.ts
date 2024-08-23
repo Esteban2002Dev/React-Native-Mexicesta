@@ -8,5 +8,5 @@ export interface Cart {
     description: string;
     created_at: string;
     status: Status;
-    items?: Item[];
+    itemsLength?: number;
 }

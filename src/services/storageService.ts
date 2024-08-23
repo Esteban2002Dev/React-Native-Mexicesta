@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Cart } from '../data/interfaces/cart.interfaces';
 import { Item } from '../data/interfaces/item.interface';
+import { ItemForStorage } from '../data/interfaces/itemToStorage';
 
 
-export const saveData = async (key: string, data: Cart[] | Item) => {
+export const saveData = async (key: string, data: Cart[] | Item[] | ItemForStorage[]) => {
     try {
         const JSONData = JSON.stringify(data);
         await AsyncStorage.setItem(key, JSONData); 

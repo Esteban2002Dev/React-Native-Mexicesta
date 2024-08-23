@@ -1,22 +1,49 @@
 import { View, Text, StyleSheet, Animated, PanResponder } from 'react-native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IonIcon } from './IonIcon';
-import { fonts } from '../../../config/theme/globalStyles';
+import { fonts, globalStyles } from '../../../config/theme/globalStyles';
 import { Color_messages, Color_palette } from '../../../config/theme/Colors';
 import { Item } from '../../../data/interfaces/item.interface';
 import { BackgroundGradient } from '../BackgroundGradient';
 import { dimensions } from '../../../constants/dimensions';
 import { Status } from '../../../data/enums/status.enum';
+import { useItem } from '../../store/item-store';
 
 interface Props {
     item: Item;
-    onSwipeLeft?: () => void;
-    onSwipeRight?: () => void;
+    cartId: string
 }
 export function ItemComponent({
-    item
+    item,
+    cartId
 }: Props) {
     const translateX = useRef(new Animated.Value(0)).current;
+    const { changeState } = useItem();
+
+    const handleSwipe = (newStatus: Status) => {
+        changeState(cartId, item.id, newStatus);
+    };
+
+    if (!item) {
+        return (
+            <View style={globalStyles.container}>
+                <BackgroundGradient />
+                <View style={{
+                    height: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Text style={{
+                        fontFamily: fonts.bold,
+                        color: Color_palette.dark,
+                        fontSize: 30,
+                        textAlign: 'center'
+                    }}>Algo salio mal!</Text>
+                    <IonIcon name='sad' color={Color_palette.dark} size={30} />
+                </View>
+            </View>
+        );
+    }
 
     const panResponder = useRef(
         PanResponder.create({
@@ -39,10 +66,12 @@ export function ItemComponent({
             onPanResponderRelease: (evt, gestureState) => {
                 if (gestureState.dx > 50) {
                     // Swipe right
-                    console.log('right');
+                    item.status = Status.COMPLETED;
+                    handleSwipe(Status.COMPLETED);
                 } else if (gestureState.dx < -50) {
                     // Swipe left
-                    console.log('left');
+                    item.status = Status.CANCELLED;
+                    handleSwipe(Status.CANCELLED);
                 }
                 // Return item to original position
                 Animated.spring(translateX, {
@@ -51,33 +80,43 @@ export function ItemComponent({
                 }).start();
             },
         })
-        ).current;
+    ).current;
     
-        return (
-            <Animated.View
-                style={{... styles.container, transform: [{ translateX }] }}
-                {...panResponder.panHandlers}>
-                <BackgroundGradient
-                colors={[Color_palette.white, Color_palette.white]}
-                style={{ opacity: 0.3 }} />
-                <View style={styles.infoContainer}>
-                    <View
-                        style={styles.textContainer}>
-                        <Text style={styles.title}>{item.name}</Text>
-                        <Text style={styles.subTitle}>{item.quantity}</Text>
-                        <Text style={styles.helpText}>{item.status}</Text>
-                    </View>
-        
-                    {item.status === Status.CANCELLED
-                    ? <IonIcon style={{alignSelf: 'center'}} name='warning' color={Color_messages.danger} size={40} />
-                    : item.status === Status.COMPLETED 
-                    ? <IonIcon style={{alignSelf: 'center'}} name='checkmark-circle' color={Color_messages.success} size={40} />
-                    : item.status === Status.PENDING
-                    ? <IonIcon style={{alignSelf: 'center'}} name='time' color={Color_messages.info} size={40} />
-                    : null}
+    return (
+        <Animated.View
+            style={{... styles.container, transform: [{ translateX }] }}
+            {...panResponder.panHandlers}>
+            <BackgroundGradient
+            colors={[Color_palette.white, Color_palette.white]}
+            style={{ opacity: 0.3 }} />
+            <View style={styles.infoContainer}>
+                <View
+                    style={{
+                        ... styles.textContainer,
+                        borderLeftColor: 
+                        item.status === Status.CANCELLED 
+                        ? Color_messages.danger
+                        : item.status === Status.COMPLETED 
+                        ? Color_messages.success
+                        : item.status === Status.PENDING 
+                        ? Color_messages.info
+                        : Color_messages.info
+                        }}>
+                    <Text style={styles.title}>{item.name}</Text>
+                    <Text style={styles.subTitle}>{item.quantity}</Text>
+                    <Text style={styles.helpText}>{item.status}</Text>
                 </View>
-            </Animated.View>
-        );
+    
+                {item.status === Status.CANCELLED
+                ? <IonIcon style={{alignSelf: 'center'}} name='warning' color={Color_messages.danger} size={40} />
+                : item.status === Status.COMPLETED 
+                ? <IonIcon style={{alignSelf: 'center'}} name='checkmark-circle' color={Color_messages.success} size={40} />
+                : item.status === Status.PENDING
+                ? <IonIcon style={{alignSelf: 'center'}} name='time' color={Color_messages.info} size={40} />
+                : null}
+            </View>
+        </Animated.View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -96,7 +135,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         borderLeftWidth: 3,
-        borderLeftColor: Color_messages.info,
         paddingLeft: 10,
     },
     title: {
