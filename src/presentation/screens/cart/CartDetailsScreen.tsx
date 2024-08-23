@@ -10,15 +10,21 @@ import { AppBar } from '../../components/AppBar';
 import { IonIcon } from '../../components/shared/IonIcon';
 import { useCart } from '../../store/cart-store-';
 import { ItemComponent } from '../../components/shared/ItemComponent';
+import { useItem } from '../../store/item-store';
+import { Item } from '../../../data/interfaces/item.interface';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
     
     // State to hold the cart data
     const [cart, setCart] = useState<Cart | undefined>(undefined);
+    const { getCartById } = useCart();
+    
     const [number, setNumber] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
-    const { getCartById } = useCart();
+
+    const [items, setItems] = useState<Item[] | undefined>(undefined);
+    const { getItemsByCartId, allItems } = useItem();
 
     // Fetch the cart when the component mounts
     useEffect(() => {
@@ -27,6 +33,7 @@ export function CartDetailsScreen() {
                 const fetchedCart = await getCartById(params!.cartId);
                 setNumber(params!.index);
                 setCart(fetchedCart);
+                await getItemsByCartId(params!.cartId);
             } catch (error) {
                 console.error('Failed to fetch cart:', error);
             } finally {
@@ -35,7 +42,11 @@ export function CartDetailsScreen() {
         };
 
         fetchCart();
-    }, [params!.cartId, getCartById]);
+    }, [params, getCartById, getItemsByCartId]);
+
+    useEffect(() => {
+        setItems(allItems);
+    }, [allItems]);
 
     if (loading) {
         return (
@@ -77,17 +88,37 @@ export function CartDetailsScreen() {
             </View>
         );
     }
+    if (!items) {
+        return (
+            <View style={globalStyles.container}>
+                <BackgroundGradient />
+                <View style={{
+                    height: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Text style={{
+                        fontFamily: fonts.bold,
+                        color: Color_palette.dark,
+                        fontSize: 30,
+                        textAlign: 'center'
+                    }}>Algo salio mal!.</Text>
+                    <IonIcon name='sad' color={Color_palette.dark} size={30} />
+                </View>
+            </View>
+        );
+    }
 
     return (
         <View style={globalStyles.container}>
             <BackgroundGradient />
             <ScrollView>
                 <View style={styles.infoContainer}>
-                    <BackgroundGradient 
+                    {/* <BackgroundGradient 
                     colors={[
                         Color_palette.white,
                         Color_palette.white,
-                    ]} style={{opacity: .8}} />
+                    ]} style={{opacity: .8}} /> */}
                     <AppBar />
                     <View style={{
                         padding: 15,
@@ -120,7 +151,7 @@ export function CartDetailsScreen() {
                 </View>
                 <View style={styles.itemsContainer}>
                     <View>
-                        {cart.items?.map(item => <ItemComponent item={item} />)}
+                        {items.map(item => <ItemComponent cartId={cart.id} item={item} />)}
                     </View>
                 </View>
             </ScrollView>

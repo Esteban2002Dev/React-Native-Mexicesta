@@ -14,6 +14,7 @@ export function CartItem({
     cart,
     index
 }: Props) {
+
     const {navigation} = useAppNavigation();
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -55,7 +56,7 @@ export function CartItem({
                 <View style={styles.rightSide}>
                     <Text style={styles.title}>{cart.title}</Text>
                     <Text>Creado el {cart.created_at}.</Text>
-                    <Text>{cart.items?.length} Objetos agregados.</Text>
+                    <Text>{cart.itemsLength} Objetos agregados.</Text>
                     <StatusText status={cart.status} />
                 </View>
             </Pressable>
