@@ -1,8 +1,8 @@
-import { create } from "zustand";
-import { Status } from "../../data/enums/status.enum";
-import { Cart } from "../../data/interfaces/cart.interfaces";
-import { deleteData, getData, saveData } from "../../services/storageService";
-import { STORAGE_KEYS } from "../../constants/storageKeys";
+import { create } from 'zustand';
+import { Status } from '@enums/status.enum';
+import { Cart } from '@interfaces/cart.interfaces';
+import { deleteData, getData, saveData } from '@services/storageService';
+import { STORAGE_KEYS } from '@constants/storageKeys';
 
 export interface CartState {
     allCarts: Cart[];

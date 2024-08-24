@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
-import { useAppNavigation } from '../hooks/useAppNavigation';
+import { useAppNavigation } from '@hooks/useAppNavigation';
 import { IonIcon } from './shared/IonIcon';
-import { Color_palette } from '../../config/theme/Colors';
+import { Color_palette } from '@theme/Colors';
 import BackButton from './BackButton';
-import { fonts } from '../../config/theme/globalStyles';
+import { fonts } from '@theme/globalStyles';
 
 export function AppBar() {
     const { navigation } = useAppNavigation();

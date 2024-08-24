@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Cart } from '../../../data/interfaces/cart.interfaces';
-import { useItem } from '../../store/item-store';
-import { Item } from '../../../data/interfaces/item.interface';
-import { useCart } from '../../store/cart-store-';
+import { Cart } from '@interfaces/cart.interfaces';
+import { useItem } from '@store/item-store';
+import { Item } from '@interfaces/item.interface';
+import { useCart } from '@store/cart-store';
 
 export function useCartDetails(cartId?: string, index?: number) {
     // State to hold the cart data

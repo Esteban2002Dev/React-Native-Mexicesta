@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import React from 'react';
-import { useAppNavigation } from '../../hooks/useAppNavigation';
 import { Status } from '../../../data/enums/status.enum';
-import { Color_messages, Color_palette } from '../../../config/theme/Colors';
-import { fonts, globalStyles } from '../../../config/theme/globalStyles';
-import { BackgroundGradient } from '../../components/BackgroundGradient';
-import { AppBar } from '../../components/AppBar';
-import { IonIcon } from '../../components/shared/IonIcon';
-import { ItemComponent } from '../../components/shared/ItemComponent';
-import { useCartDetails } from '../../hooks/cart/useCartDetails';
+import { Color_messages, Color_palette } from '@theme/Colors';
+import { fonts, globalStyles } from '@theme/globalStyles';
+import { BackgroundGradient } from '@components/BackgroundGradient';
+import { AppBar } from '@components/AppBar';
+import { IonIcon } from '@components/shared/IonIcon';
+import { ItemComponent } from '@components/shared/ItemComponent';
+import { useCartDetails } from '@hooks/cart/useCartDetails';
+import { useAppNavigation } from '@hooks/useAppNavigation';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();

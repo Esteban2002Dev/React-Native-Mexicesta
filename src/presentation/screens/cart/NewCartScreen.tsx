@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import { fonts, globalStyles } from '../../../config/theme/globalStyles';
+import { fonts, globalStyles } from '@theme/globalStyles';
 import { BackgroundGradient } from '../../components/BackgroundGradient';
 import { ScrollView } from 'react-native-gesture-handler';
 import { AppBar } from '../../components/AppBar';
-import { Color_palette } from '../../../config/theme/Colors';
+import { Color_palette } from '@theme/Colors';
 
 export function NewCartScreen() {
     return (
