@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Background_colors } from '../../config/theme/Colors';
