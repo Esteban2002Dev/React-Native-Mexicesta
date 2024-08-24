@@ -1,9 +1,9 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 import { Item } from '../../data/interfaces/item.interface';
-import { Status } from "../../data/enums/status.enum";
-import { getData, saveData } from "../../services/storageService";
-import { STORAGE_KEYS } from "../../constants/storageKeys";
-import { ItemForStorage } from "../../data/interfaces/itemToStorage";
+import { Status } from '../../data/enums/status.enum';
+import { getData, saveData } from '../../services/storageService';
+import { STORAGE_KEYS } from '../../constants/storageKeys';
+import { ItemForStorage } from '../../data/interfaces/itemToStorage';
 
 export interface ItemState {
     allItems: Item[];

@@ -1,8 +1,8 @@
-import { Pressable, StyleSheet } from 'react-native'
-import React from 'react'
-import { IonIcon } from './shared/IonIcon'
-import { Color_palette } from '../../config/theme/Colors'
-import { useAppNavigation } from '../hooks/useAppNavigation'
+import { Pressable, StyleSheet } from 'react-native';
+import React from 'react';
+import { IonIcon } from './shared/IonIcon';
+import { Color_palette } from '../../config/theme/Colors';
+import { useAppNavigation } from '../hooks/useAppNavigation';
 
 export default function BackButton() {
     const { navigation } = useAppNavigation();

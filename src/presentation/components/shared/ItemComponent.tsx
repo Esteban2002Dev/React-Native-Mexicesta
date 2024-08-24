@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Animated, PanResponder } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, StyleSheet, Animated, PanResponder } from 'react-native';
+import React, {useRef } from 'react'
 import { IonIcon } from './IonIcon';
 import { fonts, globalStyles } from '../../../config/theme/globalStyles';
 import { Color_messages, Color_palette } from '../../../config/theme/Colors';
@@ -65,12 +65,8 @@ export function ItemComponent({
              */
             onPanResponderRelease: (evt, gestureState) => {
                 if (gestureState.dx > 50) {
-                    // Swipe right
-                    item.status = Status.COMPLETED;
                     handleSwipe(Status.COMPLETED);
                 } else if (gestureState.dx < -50) {
-                    // Swipe left
-                    item.status = Status.CANCELLED;
                     handleSwipe(Status.CANCELLED);
                 }
                 // Return item to original position

@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Pressable, Animated } from 'react-native'
-import React, { useRef } from 'react'
+import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
+import React, { useRef } from 'react';
 import { Color_palette } from '../../../config/theme/Colors';
 import { fonts } from '../../../config/theme/globalStyles';
 import { Cart } from '../../../data/interfaces/cart.interfaces';
