@@ -1,52 +1,19 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAppNavigation } from '../../hooks/useAppNavigation';
-import { Cart } from '../../../data/interfaces/cart.interfaces';
 import { Status } from '../../../data/enums/status.enum';
 import { Color_messages, Color_palette } from '../../../config/theme/Colors';
 import { fonts, globalStyles } from '../../../config/theme/globalStyles';
 import { BackgroundGradient } from '../../components/BackgroundGradient';
 import { AppBar } from '../../components/AppBar';
 import { IonIcon } from '../../components/shared/IonIcon';
-import { useCart } from '../../store/cart-store-';
 import { ItemComponent } from '../../components/shared/ItemComponent';
-import { useItem } from '../../store/item-store';
-import { Item } from '../../../data/interfaces/item.interface';
+import { useCartDetails } from '../../hooks/cart/useCartDetails';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
-    
-    // State to hold the cart data
-    const [cart, setCart] = useState<Cart | undefined>(undefined);
-    const { getCartById } = useCart();
-    
-    const [number, setNumber] = useState<number>(0);
-    const [loading, setLoading] = useState<boolean>(true);
+    const { cart, currentIndex, loading, items } = useCartDetails(params?.cartId, params?.index);
 
-    const [items, setItems] = useState<Item[] | undefined>(undefined);
-    const { getItemsByCartId, allItems } = useItem();
-
-    // Fetch the cart when the component mounts
-    useEffect(() => {
-        const fetchCart = async () => {
-            try {
-                const fetchedCart = await getCartById(params!.cartId);
-                setNumber(params!.index);
-                setCart(fetchedCart);
-                await getItemsByCartId(params!.cartId);
-            } catch (error) {
-                console.error('Failed to fetch cart:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCart();
-    }, [params, getCartById, getItemsByCartId]);
-
-    useEffect(() => {
-        setItems(allItems);
-    }, [allItems]);
 
     if (loading) {
         return (
@@ -114,11 +81,6 @@ export function CartDetailsScreen() {
             <BackgroundGradient />
             <ScrollView>
                 <View style={styles.infoContainer}>
-                    {/* <BackgroundGradient 
-                    colors={[
-                        Color_palette.white,
-                        Color_palette.white,
-                    ]} style={{opacity: .8}} /> */}
                     <AppBar />
                     <View style={{
                         padding: 15,
@@ -131,7 +93,7 @@ export function CartDetailsScreen() {
                         <View style={styles.contentContainer}>
                             <View style={styles.leftSide}>
                                 <Text style={styles.subtitle}>
-                                    Carrito #{number}
+                                    Carrito #{currentIndex}
                                 </Text>
                                 <Text style={styles.description}>
                                     {cart.description}
