@@ -1,79 +1,75 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Mexicesta
+>**Mobile App**: Developed By L. Esteban.
 
-# Getting Started
+**Mexicesta** is a mobile app designed to help you organize your shopping effortlessly. Perfect for when you're offline, Mexicesta allows you to create and manage shopping carts with an unlimited number of items.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Why Does Mexicesta Exist?
 
-## Step 1: Start the Metro Server
+Every Saturday, I used to jot down all the items I planned to buy at the tianguis. To streamline this process and keep all my shopping needs organized, I decided to create Mexicesta. This app allows me to keep track of everything I need to purchase in one convenient place, making my shopping trips more efficient and hassle-free.
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Architecture & More
 
-To start Metro, run the following command from the _root_ of your React Native project:
+This project combines **Screaming Architecture** with a **Feature-Based Architecture** approach. Files and folders are organized based on their functionality and usage, making the system's structure intuitive and easy to navigate.
 
-```bash
-# using npm
-npm start
+- **Screaming Architecture**: This approach ensures that the system's core logic and business rules are clearly defined and easily understood.
+- **Feature-Based Architecture**: This method organizes the codebase by features rather than technical layers, making it easier to manage and scale.
 
-# OR using Yarn
-yarn start
-```
+In addition, to simplify imports and avoid cumbersome relative paths (`../.../`), **alias paths** have been set up. This allows for cleaner and more maintainable code by referencing modules with simpler, more descriptive paths.
 
-## Step 2: Start your Application
+### Reusable Components & Global Settings
+In Mexicesta, the design and architecture are optimized for reusability and consistency. Every component and setting in the app is designed to be declared once and reused wherever necessary. This approach ensures a cohesive look and feel throughout the application while minimizing redundancy.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## Dependencies
 
-### For Android
+This project uses several libraries and tools to enhance functionality and development. Below is a list of the main dependencies and their purposes:
 
-```bash
-# using npm
-npm run android
+### **Frontend Dependencies**
 
-# OR using Yarn
-yarn android
-```
+- **Zustand**: A package to manage the global state of the App, providing a simple and scalable way to handle state management.
+- **Linear Gradient**: A package used to create beautiful gradient backgrounds. This package was used to design the app's background, adding a stylish gradient transition from one color to another.
 
-### For iOS
+## Features
 
-```bash
-# using npm
-npm run ios
+- Create multiple shopping carts
+- Manage an unlimited number of items
+- Offline functionality
 
-# OR using Yarn
-yarn ios
-```
+## Installation
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+To get started with Mexicesta, follow these steps:
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+1. Download the app from your respective app store.
+2. Open the app and create your first cart.
+3. Add items to your cart as needed.
 
-## Step 3: Modifying your App
+## Usage
 
-Now that you have successfully run the app, let's modify it.
+Here’s how to use Mexicesta:
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+1. **Open the App**: Launch Mexicesta on your mobile device.
+2. **Create a Cart**: Tap on the "New Cart" button to start a new shopping list.
+3. **Add Items**: Use the “Add Item” button to include products in your cart.
+4. **View and Edit**: Review your cart, make changes, or delete items as needed.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## Screenshots
 
-## Congratulations! :tada:
+Here are some screenshots of Mexicesta:
 
-You've successfully run and modified your React Native App. :partying_face:
+<img src="https://github.com/user-attachments/assets/8e893de6-56f1-4c3d-a45d-1d4a9df376c4" width="250" alt="Mexicesta - Home">
+<img src="https://github.com/user-attachments/assets/9bfb7ec7-5bb7-47b6-b478-b417968e9631" width="250" alt="Mexicesta - Details">
+<img src="https://github.com/user-attachments/assets/f63a0f65-9f4e-4c62-82a7-dad5034cd9b3" width="250" alt="Mexicesta - Details">
 
-### Now what?
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
 
-# Troubleshooting
+## Contributing
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+We welcome contributions to Mexicesta! If you’d like to help, please follow these steps:
 
-# Learn More
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes and commit them.
+4. Open a pull request with a description of your changes.
 
-To learn more about React Native, take a look at the following resources:
+---
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Feel free to adjust the structure to fit your needs. If you have any other questions or need more details, let me know!
