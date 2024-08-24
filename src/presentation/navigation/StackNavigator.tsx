@@ -1,7 +1,7 @@
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { CartListScreen } from '../screens/cart/CartListScreen';
-import { NewCartScreen } from '../screens/cart/NewCartScreen';
-import { CartDetailsScreen } from '../screens/cart/CartDetailsScreen';
+import { CartListScreen } from '@screens/cart/CartListScreen';
+import { NewCartScreen } from '@screens/cart/NewCartScreen';
+import { CartDetailsScreen } from '@screens/cart/CartDetailsScreen';
 
 export type RootStackParams = {
     CartList: undefined;

@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { StackNavigator } from './presentation/navigation/StackNavigator';
+import { StackNavigator } from '@navigation/StackNavigator';
 import { StatusBar } from 'react-native';
-import { Color_palette } from './config/theme/Colors';
+import { Color_palette } from '@theme/Colors';
 import SplashScreen from 'react-native-splash-screen';
 
 

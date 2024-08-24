@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Color_palette } from '../../../config/theme/Colors';
-import { useAppNavigation } from '../../hooks/useAppNavigation';
-import { BackgroundGradient } from '../../components/BackgroundGradient';
-import { AppBar } from '../../components/AppBar';
-import { fonts, globalStyles } from '../../../config/theme/globalStyles';
-import PrimaryButton from '../../components/shared/PrimaryButton';
-import { IonIcon } from '../../components/shared/IonIcon';
-import { CartItem } from '../../components/shared/CartItem';
+import { Color_palette } from '@theme/Colors';
+import { useAppNavigation } from '@hooks/useAppNavigation';
+import { BackgroundGradient } from '@components/BackgroundGradient';
+import { AppBar } from '@components/AppBar';
+import { fonts, globalStyles } from '@theme/globalStyles';
+import PrimaryButton from '@components/shared/PrimaryButton';
+import { IonIcon } from '@components/shared/IonIcon';
+import { CartItem } from '@components/shared/CartItem';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useCart } from '../../store/cart-store-';
+import { useCart } from '@store/cart-store';
 
 export function CartListScreen() {
     const { navigation } = useAppNavigation();

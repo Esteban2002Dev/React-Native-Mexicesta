@@ -2,8 +2,8 @@ import { View, Text } from 'react-native';
 import React from 'react';
 import { Status } from '../../../data/enums/status.enum';
 import { SvgDrawer } from './SvgDrawer';
-import { Color_messages, Color_palette } from '../../../config/theme/Colors';
-import { crossPath, wavyPath } from '../../../constants/patronsPath';
+import { Color_messages, Color_palette } from '@theme/Colors';
+import { crossPath, wavyPath } from '@constants/patronsPath';
 
 interface Props {
     status: Status

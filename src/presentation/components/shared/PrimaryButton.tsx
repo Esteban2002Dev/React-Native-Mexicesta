@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Pressable, StyleSheet } from 'react-native'
-import { Color_palette } from '../../../config/theme/Colors';
-import { fonts } from '../../../config/theme/globalStyles';
+import { Color_palette } from '@theme/Colors';
+import { fonts } from '@theme/globalStyles';
 
 interface Props { 
     label: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Background_colors } from '../../config/theme/Colors';
+import { Background_colors } from '@theme/Colors';
 
 /**
  * * https://www.npmjs.com/package/react-native-linear-gradient

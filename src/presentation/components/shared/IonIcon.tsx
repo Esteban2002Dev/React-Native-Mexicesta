@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Color_palette } from '../../../config/theme/Colors';
+import { Color_palette } from '@theme/Colors';
 import { TextStyle, ViewStyle } from 'react-native';
 
 interface Props {

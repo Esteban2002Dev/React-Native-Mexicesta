@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, Animated, PanResponder } from 'react-native';
 import React, {useRef } from 'react'
 import { IonIcon } from './IonIcon';
-import { fonts, globalStyles } from '../../../config/theme/globalStyles';
-import { Color_messages, Color_palette } from '../../../config/theme/Colors';
-import { Item } from '../../../data/interfaces/item.interface';
+import { fonts, globalStyles } from '@theme/globalStyles';
+import { Color_messages, Color_palette } from '@theme/Colors';
+import { Item } from '@interfaces/item.interface';
 import { BackgroundGradient } from '../BackgroundGradient';
-import { dimensions } from '../../../constants/dimensions';
-import { Status } from '../../../data/enums/status.enum';
-import { useItem } from '../../store/item-store';
+import { dimensions } from '@constants/dimensions';
+import { Status } from '@enums/status.enum';
+import { useItem } from '@store/item-store';
 
 interface Props {
     item: Item;
