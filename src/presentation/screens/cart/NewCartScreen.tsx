@@ -11,7 +11,7 @@ export function NewCartScreen() {
         <View style={globalStyles.container}>
             <BackgroundGradient />
             <ScrollView>
-                <AppBar />
+                <AppBar title={`Agregar nuevo\ncarrito`} />
                 <View style={styles.infoContainer}>
                     <View style={styles.titleContainer}>
                         <Text numberOfLines={2} adjustsFontSizeToFit style={styles.title}>

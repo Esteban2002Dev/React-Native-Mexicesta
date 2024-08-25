@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useAppNavigation } from '@hooks/useAppNavigation';
 import { IonIcon } from './shared/IonIcon';
@@ -6,7 +6,12 @@ import { Color_palette } from '@theme/Colors';
 import BackButton from './BackButton';
 import { fonts } from '@theme/globalStyles';
 
-export function AppBar() {
+interface Props {
+    title?: string;
+}
+export function AppBar({
+    title = `Mexi\nCesta`
+}: Props) {
     const { navigation } = useAppNavigation();
 
     return (
@@ -18,7 +23,7 @@ export function AppBar() {
                     )}
                 </View>
                 <View style={styles.rightSide}>
-                    <Text style={styles.title}>Cart{'\n'}Control</Text>
+                    <Text style={styles.title}>{title}</Text>
                     <Pressable
                     style={({pressed}) => ({
                         opacity: pressed ? .7 : 1
