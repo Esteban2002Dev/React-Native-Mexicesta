@@ -9,24 +9,29 @@ export interface ItemState {
     allItems: Item[];
     getItemsByCartId: (cartId: string) => void;
     saveItems: (items: Item[]) => void;
+    saveGroupItems: (groupItems: ItemForStorage) => void;
     changeState: (cartId: string, itemId: string, newState: Status) => void;
 }
 
 export const useItem = create<ItemState>()((set, get) => ({
-    allItems: [] as Item[],
+    allItems: [],
     
     getItemsByCartId: async (cartId: string) => {
         const groupItems: ItemForStorage[] = await getData(STORAGE_KEYS.ITEMS_BY_CART_KEY) || [];
         const items = groupItems.find(item => item.cartId === cartId);
         set({ allItems: items?.items });
     },
-
     saveItems: async (items: Item[]) => {
         let allItems: Item[] = await getData(STORAGE_KEYS.ITEMS_KEY) || [];
         allItems = [...allItems, ...items];
         await saveData(STORAGE_KEYS.ITEMS_KEY, allItems);
     },
+    saveGroupItems: async (groupItem: ItemForStorage) => {
+        let groupItems: ItemForStorage[] = await getData(STORAGE_KEYS.ITEMS_BY_CART_KEY) || [];
+        groupItems = [groupItem, ... groupItems];
 
+        await saveData(STORAGE_KEYS.ITEMS_BY_CART_KEY, groupItems);
+    },
     changeState: async (cartId: string, itemId: string, newState: Status) => {
         let groupItems: ItemForStorage[] = await getData(STORAGE_KEYS.ITEMS_BY_CART_KEY) || [];
         

@@ -24,7 +24,7 @@ export default function PrimaryButton({
         disabled={disabled}
         onPress={() => onPress()}
         style={({pressed}) => ({
-            opacity: pressed ? .8 : 1,
+            opacity: pressed || disabled ? .8 : 1,
             backgroundColor: color,
             ... styles.button,
         })}>
