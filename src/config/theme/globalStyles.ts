@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { Color_palette } from "./Colors";
+import { StyleSheet } from 'react-native';
+import { Color_palette } from './Colors';
 
 export const fonts = {
     regular: 'RalewayRegular',
