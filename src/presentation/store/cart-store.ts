@@ -8,7 +8,7 @@ export interface CartState {
     allCarts: Cart[];
 
     setCarts: () => void;
-    createCart?: (cart: Cart) => void;
+    createCart: (cart: Cart) => void;
     updateCart?: (id: string, updatedCart: Cart) => void;
     getCartById: (id: string) => Promise<Cart | undefined>;
 

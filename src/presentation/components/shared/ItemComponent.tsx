@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Animated, PanResponder } from 'react-native';
-import React, {useRef } from 'react'
+import React, { useRef } from 'react';
 import { IonIcon } from './IonIcon';
 import { fonts, globalStyles } from '@theme/globalStyles';
 import { Color_messages, Color_palette } from '@theme/Colors';
@@ -11,13 +11,16 @@ import { useItem } from '@store/item-store';
 
 interface Props {
     item: Item;
-    cartId: string
+    cartId: string;
+    deleteItem?: (itemId: string) => void;
 }
 export function ItemComponent({
     item,
-    cartId
+    cartId,
+    deleteItem
 }: Props) {
     const translateX = useRef(new Animated.Value(0)).current;
+    const opacity = useRef(new Animated.Value(1)).current;
     const { changeState } = useItem();
 
     const handleSwipe = (newStatus: Status) => {
@@ -38,7 +41,7 @@ export function ItemComponent({
                         color: Color_palette.dark,
                         fontSize: 30,
                         textAlign: 'center'
-                    }}>Algo salio mal!</Text>
+                    }}>Algo salió mal!</Text>
                     <IonIcon name='sad' color={Color_palette.dark} size={30} />
                 </View>
             </View>
@@ -59,13 +62,21 @@ export function ItemComponent({
              */
             onPanResponderMove: (evt, gestureState) => {
                 translateX.setValue(gestureState.dx);
+                if (gestureState.dx > dimensions.window.width * 0.7 && deleteItem) {
+                    const newOpacity = 1 - gestureState.dx / dimensions.window.width;
+                    opacity.setValue(newOpacity);
+                } else {
+                    opacity.setValue(1);
+                }
             },
             /**
              *  This block is executed when the first block returns true and the user stops touching the screen.
              */
             onPanResponderRelease: (evt, gestureState) => {
-                if (gestureState.dx > 50) {
+                if (gestureState.dx > 50 && gestureState.dx < dimensions.window.width * 0.7) {
                     handleSwipe(Status.COMPLETED);
+                } else if (gestureState.dx > dimensions.window.width * 0.7 && deleteItem) {
+                    deleteItem(item.id);
                 } else if (gestureState.dx < -50) {
                     handleSwipe(Status.CANCELLED);
                 }
@@ -80,7 +91,7 @@ export function ItemComponent({
     
     return (
         <Animated.View
-            style={{... styles.container, transform: [{ translateX }] }}
+            style={{... styles.container, transform: [{ translateX }], opacity: opacity }}
             {...panResponder.panHandlers}>
             <BackgroundGradient
             colors={[Color_palette.white, Color_palette.white]}
@@ -100,16 +111,35 @@ export function ItemComponent({
                         }}>
                     <Text style={styles.title}>{item.name}</Text>
                     <Text style={styles.subTitle}>{item.quantity}</Text>
-                    <Text style={styles.helpText}>{item.status}</Text>
+                    <Text style={styles.helpText}>
+                        {item.description ? item.description : item.status}
+                    </Text>
                 </View>
-    
-                {item.status === Status.CANCELLED
-                ? <IonIcon style={{alignSelf: 'center'}} name='warning' color={Color_messages.danger} size={40} />
-                : item.status === Status.COMPLETED 
-                ? <IonIcon style={{alignSelf: 'center'}} name='checkmark-circle' color={Color_messages.success} size={40} />
-                : item.status === Status.PENDING
-                ? <IonIcon style={{alignSelf: 'center'}} name='time' color={Color_messages.info} size={40} />
-                : null}
+
+                <View style={styles.statusContainer}>
+                    {item.status === Status.CANCELLED ? (
+                        <IonIcon
+                            style={{ alignSelf: 'center' }}
+                            name="warning"
+                            color={Color_messages.danger}
+                            size={40}
+                        />
+                    ) : item.status === Status.COMPLETED ? (
+                        <IonIcon
+                            style={{ alignSelf: 'center' }}
+                            name="checkmark-circle"
+                            color={Color_messages.success}
+                            size={40}
+                        />
+                    ) : item.status === Status.PENDING ? (
+                        <IonIcon
+                            style={{ alignSelf: 'center' }}
+                            name="time"
+                            color={Color_messages.info}
+                            size={40}
+                        />
+                    ) : null}
+                </View>
             </View>
         </Animated.View>
     );
@@ -120,18 +150,25 @@ const styles = StyleSheet.create({
         borderRadius: 22,
         overflow: 'hidden',
         minHeight: 100,
-        marginBottom: 15
+        marginBottom: 15,
+        flex: 1,
     },
     infoContainer: {
+        flex: 1,
         padding: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        elevation: 2
+        elevation: 2,
+    },
+    statusContainer: {
+        justifyContent: 'flex-end',
+        flex: 1,
     },
     textContainer: {
         borderLeftWidth: 3,
         paddingLeft: 10,
+        flex: 6,
     },
     title: {
         fontFamily: fonts.extraBold,
@@ -147,6 +184,6 @@ const styles = StyleSheet.create({
     },
     helpText: {
         fontFamily: fonts.regular,
-        color: Color_palette.dark
+        color: Color_palette.dark,
     },
 });
