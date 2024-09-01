@@ -37,7 +37,6 @@ export function NewCartScreen() {
 
     // * Item data
     const [items, setItems] = useState<Item[]>([]);
-    const [itemId, setItemId] = useState<string>('');
     const [itemName, setItemName] = useState<string>('');
     const [itemQuantity, setItemQuantity] = useState<string>('');
     const [itemDescription, setItemDescription] = useState<string>('');
@@ -94,16 +93,14 @@ export function NewCartScreen() {
     };
 
     const saveItem = () => {
-        setItemId(uuidv4());
         const newItem: Item = {
-            id: itemId,
+            id: uuidv4(),
             cartId: id,
             name: itemName,
             description: itemDescription,
             quantity: itemQuantity,
             status: itemStatus,
         };
-        setItemId('');
         setItemName('');
         setItemDescription('');
         setItemQuantity('');
