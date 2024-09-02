@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Status } from '../../../data/enums/status.enum';
 import { Color_messages, Color_palette } from '@theme/Colors';
 import { fonts, globalStyles } from '@theme/globalStyles';
@@ -9,11 +9,24 @@ import { IonIcon } from '@components/shared/IonIcon';
 import { ItemComponent } from '@components/shared/ItemComponent';
 import { useCartDetails } from '@hooks/cart/useCartDetails';
 import { useAppNavigation } from '@hooks/useAppNavigation';
+import { useCart } from '@store/cart-store';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
     const { cart, currentIndex, loading, items } = useCartDetails(params?.cartId, params?.index);
+    const { updateCartStatus } = useCart();
 
+    useEffect(() => {
+        if (!cart) return;
+        if (!items) return;
+        const allSameStatus = items?.every(item => item.status === items[0].status);
+
+        if (allSameStatus) {
+            cart.status = items[0].status;
+            updateCartStatus(cart?.id, items[0].status);
+        }
+        
+    }, [items]);
 
     if (loading) {
         return (
