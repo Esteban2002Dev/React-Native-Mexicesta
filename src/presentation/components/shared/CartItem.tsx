@@ -5,6 +5,7 @@ import { fonts } from '@theme/globalStyles';
 import { Cart } from '@interfaces/cart.interfaces';
 import { StatusText } from './StatusText';
 import { useAppNavigation } from '@hooks/useAppNavigation';
+import { useCart } from '@store/cart-store';
 
 interface Props {
     cart: Cart;
@@ -15,8 +16,11 @@ export function CartItem({
     index
 }: Props) {
 
-    const {navigation} = useAppNavigation();
+    const { navigation } = useAppNavigation();
+    const { deleteCart } = useCart();
     const scaleAnim = useRef(new Animated.Value(1)).current;
+    const progressAnim = useRef(new Animated.Value(0)).current;
+    let longPressTimeout: any;
 
     const handlePressIn = () => {
         Animated.spring(scaleAnim, {
@@ -25,6 +29,16 @@ export function CartItem({
             tension: 100,
             useNativeDriver: true,
         }).start();
+
+        Animated.timing(progressAnim, {
+            toValue: 1,
+            duration: 1500,
+            useNativeDriver: false,
+        }).start();
+
+        longPressTimeout = setTimeout(() => {
+            deleteCart(cart.id);
+        }, 1500);
     };
 
     const handlePressOut = () => {
@@ -34,6 +48,24 @@ export function CartItem({
             tension: 100,
             useNativeDriver: true,
         }).start();
+
+        Animated.timing(progressAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+
+        clearTimeout(longPressTimeout);
+    };
+
+    const progressInterpolate = progressAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0%', '100%']
+    });
+
+    const progressStyle = {
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+        width: progressInterpolate,
     };
     
     return (
@@ -50,6 +82,7 @@ export function CartItem({
                 opacity: pressed ? 0.7 : 1
             })}>
                 <View style={styles.itemBackground} />
+                <Animated.View style={[styles.progressBackground, progressStyle]} />
                 <View style={styles.leftSide}>
                     <Text adjustsFontSizeToFit numberOfLines={1} style={styles.numberText}>{index}</Text>
                 </View>
@@ -73,6 +106,12 @@ const styles = StyleSheet.create({
         right: 0,
         left: 0,
         top: 0,
+    },
+    progressBackground: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
     },
     container: {
         width: '100%',

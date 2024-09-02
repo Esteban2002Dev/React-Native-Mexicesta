@@ -13,7 +13,7 @@ export interface CartState {
     getCartById: (id: string) => Promise<Cart | undefined>;
 
     updateCartStatus: (cartId: string, status: Status) => void;
-    deleteCart?: (key: string) => void;
+    deleteCart: (cartId: string) => void;
 }
 
 export const useCart = create<CartState>()((set, get) => ({
@@ -48,8 +48,10 @@ export const useCart = create<CartState>()((set, get) => ({
             get().setCarts();
         }
     },
-    deleteCart: async (key: string) => {
-        await deleteData(key);
+    deleteCart: async (cartId: string) => {
+        let allCarts: Cart[] = await getData(STORAGE_KEYS.CART_KEY);
+        allCarts = allCarts.filter((cart: Cart) => cart.id!== cartId);
+        await saveData(STORAGE_KEYS.CART_KEY, allCarts);
         get().setCarts();
     }
 }));
