@@ -12,13 +12,12 @@ interface Props {
 export function AppBar({
     title = `Mexi\nCesta`
 }: Props) {
-    const { navigation } = useAppNavigation();
-
+    const { navigation, route } = useAppNavigation();
     return (
         <View>
             <View style={styles.appBarContainer}>
                 <View style={styles.leftSide}>
-                    {navigation.canGoBack() && (
+                    {route.name !== 'CartList' && navigation.canGoBack() && (
                         <BackButton />
                     )}
                 </View>
