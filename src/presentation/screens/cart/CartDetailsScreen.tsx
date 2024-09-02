@@ -113,7 +113,7 @@ export function CartDetailsScreen() {
                 </View>
                 <View style={styles.itemsContainer}>
                     <View>
-                        {items.map(item => <ItemComponent cartId={cart.id} item={item} />)}
+                        {items.map(item => <ItemComponent cartId={cart.id} item={item} key={item.id} />)}
                     </View>
                 </View>
             </ScrollView>
