@@ -24,6 +24,7 @@ export function ItemComponent({
     const { changeState } = useItem();
 
     const handleSwipe = (newStatus: Status) => {
+        item.status = newStatus;
         changeState(cartId, item.id, newStatus);
     };
 
@@ -78,7 +79,11 @@ export function ItemComponent({
                 } else if (gestureState.dx > dimensions.window.width * 0.7 && deleteItem) {
                     deleteItem(item.id);
                 } else if (gestureState.dx < -50) {
-                    handleSwipe(Status.CANCELLED);
+                    if (item.status === Status.COMPLETED) {
+                        handleSwipe(Status.PENDING);
+                    } else if (item.status === Status.PENDING) {
+                        handleSwipe(Status.CANCELLED);
+                    }
                 }
                 // Return item to original position
                 Animated.spring(translateX, {
