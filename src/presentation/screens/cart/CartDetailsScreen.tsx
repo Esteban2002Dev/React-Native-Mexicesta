@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import React, { useEffect } from 'react';
-import { Status } from '../../../data/enums/status.enum';
+import { Status } from '@enums/status.enum';
 import { Color_messages, Color_palette } from '@theme/Colors';
 import { fonts, globalStyles } from '@theme/globalStyles';
 import { BackgroundGradient } from '@components/BackgroundGradient';
@@ -17,16 +17,24 @@ export function CartDetailsScreen() {
     const { updateCartStatus } = useCart();
 
     useEffect(() => {
-        if (!cart) return;
-        if (!items) return;
-        const allSameStatus = items?.every(item => item.status === items[0].status);
+        if (!cart || !items?.length) return;
+        const hasPending = items.some(item => item.status === Status.PENDING);
+        const allSameStatus = items.every(item => item.status === items[0].status);
+        const allCompletedOrCancelled = items.every(item => 
+            item.status === Status.COMPLETED || item.status === Status.CANCELLED
+        );
 
         if (allSameStatus) {
             cart.status = items[0].status;
-            updateCartStatus(cart?.id, items[0].status);
+            updateCartStatus(cart.id, items[0].status);
+        } else if (hasPending) {
+            cart.status = Status.PENDING;
+            updateCartStatus(cart.id, Status.PENDING);
+        } else if (allCompletedOrCancelled) {
+            cart.status = Status.COMPLETED;
+            updateCartStatus(cart.id, Status.COMPLETED);
         }
-        
-    }, [items]);
+    }, [items, cart]);
 
     if (loading) {
         return (
