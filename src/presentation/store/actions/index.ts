@@ -14,3 +14,13 @@ export const formatDate = (date: Date) => {
 
     return `${dayOfWeek} ${day} de ${month} del ${year} a las ${hours}:${minutes} ${ampm}`;
 };
+
+export const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+        currencyDisplay: 'symbol',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(value);
+};
