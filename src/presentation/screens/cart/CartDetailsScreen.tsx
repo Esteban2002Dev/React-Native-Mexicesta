@@ -13,7 +13,7 @@ import { useCart } from '@store/cart-store';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
-    const { cart, currentIndex, loading, items } = useCartDetails(params?.cartId, params?.index);
+    const { cart, currentIndex, loading, items, total } = useCartDetails(params?.cartId, params?.index);
     const { updateCartStatus } = useCart();
 
     useEffect(() => {
@@ -119,6 +119,9 @@ export function CartDetailsScreen() {
                                 <Text style={styles.description}>
                                     {cart.description}
                                 </Text>
+                                <Text style={styles.description}>
+                                    Total: {total}
+                                </Text>
                             </View>
                             <View style={styles.rightSide}>
                                 {cart.status === Status.CANCELLED
@@ -134,7 +137,7 @@ export function CartDetailsScreen() {
                 </View>
                 <View style={styles.itemsContainer}>
                     <View>
-                        {items.map(item => <ItemComponent cartId={cart.id} item={item} key={item.id} />)}
+                        {items.map(item => <ItemComponent cartId={cart.id} item={item} key={item.id} showPriceInput={true} />)}
                     </View>
                 </View>
             </ScrollView>

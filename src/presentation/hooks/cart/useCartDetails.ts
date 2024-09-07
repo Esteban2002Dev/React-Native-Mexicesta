@@ -3,6 +3,8 @@ import { Cart } from '@interfaces/cart.interfaces';
 import { useItem } from '@store/item-store';
 import { Item } from '@interfaces/item.interface';
 import { useCart } from '@store/cart-store';
+import { formatCurrency } from '@store/actions';
+import { Status } from '@enums/status.enum';
 
 export function useCartDetails(cartId?: string, index?: number) {
     // State to hold the cart data
@@ -15,6 +17,8 @@ export function useCartDetails(cartId?: string, index?: number) {
 
     const [items, setItems] = useState<Item[] | undefined>(undefined);
     const { getItemsByCartId, allItems } = useItem();
+
+    const [total, setTotal] = useState<number | string>(0);
 
     useEffect(() => {
         const fetchCart = async () => {
@@ -43,11 +47,24 @@ export function useCartDetails(cartId?: string, index?: number) {
         setItems(allItems);
     }, [allItems]);
 
+    useEffect(() => {
+        if (!items) return;
+        const sumTotal = allItems.reduce((accumulator, item) => {
+            return accumulator + (
+                item.status !== Status.CANCELLED 
+                && item.status !== Status.PENDING 
+                ? item.price || 0 
+                : 0);
+        }, 0);
+        setTotal(formatCurrency(sumTotal));
+    }, [allItems]);
+
     return {
         cart,
         currentIndex,
         loading,
         items,
-        error
+        error,
+        total
     }
 }
