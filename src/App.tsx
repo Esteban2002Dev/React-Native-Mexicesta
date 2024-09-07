@@ -3,8 +3,8 @@ import 'react-native-get-random-values';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigator } from '@navigation/StackNavigator';
-import { StatusBar } from 'react-native';
 import { Color_palette } from '@theme/Colors';
+import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 
