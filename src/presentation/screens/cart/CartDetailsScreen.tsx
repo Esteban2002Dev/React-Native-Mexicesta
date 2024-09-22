@@ -10,12 +10,19 @@ import { ItemComponent } from '@components/shared/ItemComponent';
 import { useCartDetails } from '@hooks/cart/useCartDetails';
 import { useAppNavigation } from '@hooks/useAppNavigation';
 import { useCart } from '@store/cart-store';
+import { useTheme } from '@store/themeCustomization/theme-store';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
     const { cart, currentIndex, loading, items, total } = useCartDetails(params?.cartId, params?.index);
     const { updateCartStatus } = useCart();
 
+    const { background, setBackground } = useTheme();
+
+    useEffect(() => {
+        setBackground();
+    }, [setBackground]);
+    
     useEffect(() => {
         if (!cart || !items?.length) return;
         const hasPending = items.some(item => item.status === Status.PENDING);
@@ -99,7 +106,9 @@ export function CartDetailsScreen() {
 
     return (
         <View style={globalStyles.container}>
-            <BackgroundGradient />
+            {background.colors.length > 2
+            ? <BackgroundGradient colors={background.colors} />
+            : <BackgroundGradient />}
             <ScrollView>
                 <View style={styles.infoContainer}>
                     <AppBar />

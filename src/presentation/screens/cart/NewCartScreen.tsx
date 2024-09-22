@@ -15,6 +15,7 @@ import { useItem } from '@store/item-store';
 import { v4 as uuidv4 } from 'uuid';
 import { ItemComponent } from '@components/shared/ItemComponent';
 import { useAppNavigation } from '@hooks/useAppNavigation';
+import { useTheme } from '@store/themeCustomization/theme-store';
 
 /**
  * * UUID Documentation
@@ -43,6 +44,11 @@ export function NewCartScreen() {
     const [itemStatus, setItemStatus] = useState<Status>(Status.PENDING);
 
     const { saveGroupItems } = useItem();
+    const { background, setBackground } = useTheme();
+
+    useEffect(() => {
+        setBackground();
+    }, [setBackground]);
 
     useEffect(() => {
         setCreated_at(formatDate(new Date()));
@@ -113,7 +119,9 @@ export function NewCartScreen() {
 
     return (
         <View style={globalStyles.container}>
-            <BackgroundGradient />
+            {background.colors.length > 2
+            ? <BackgroundGradient colors={background.colors} />
+            : <BackgroundGradient />}
             <ScrollView>
                 <AppBar title={`Agregar nuevo\n carrito`} />
                 <View style={formStyles.container}>

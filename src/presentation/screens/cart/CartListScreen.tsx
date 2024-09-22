@@ -10,18 +10,26 @@ import { IonIcon } from '@components/shared/IonIcon';
 import { CartItem } from '@components/shared/CartItem';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useCart } from '@store/cart-store';
+import { useTheme } from '@store/themeCustomization/theme-store';
 
 export function CartListScreen() {
     const { navigation } = useAppNavigation();
     const { setCarts, allCarts } = useCart();
+    const { background, setBackground } = useTheme();
 
     useEffect(() => {
         setCarts();
     }, []);
 
+    useEffect(() => {
+        setBackground();
+    }, [setBackground]);
+
     return (
         <View style={globalStyles.container}>
-            <BackgroundGradient />
+            {background.colors.length > 2
+            ? <BackgroundGradient colors={background.colors} />
+            : <BackgroundGradient />}
             <ScrollView>
                 <AppBar />
                 <View style={styles.infoContainer}>
