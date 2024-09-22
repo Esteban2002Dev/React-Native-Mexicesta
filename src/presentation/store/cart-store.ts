@@ -8,12 +8,12 @@ export interface CartState {
     allCarts: Cart[];
 
     setCarts: () => void;
-    createCart?: (cart: Cart) => void;
+    createCart: (cart: Cart) => void;
     updateCart?: (id: string, updatedCart: Cart) => void;
     getCartById: (id: string) => Promise<Cart | undefined>;
 
-    updateCartStatus?: (id: string, status: Status) => void;
-    deleteCart?: (key: string) => void;
+    updateCartStatus: (cartId: string, status: Status) => void;
+    deleteCart: (cartId: string) => void;
 }
 
 export const useCart = create<CartState>()((set, get) => ({
@@ -37,8 +37,21 @@ export const useCart = create<CartState>()((set, get) => ({
         await saveData(STORAGE_KEYS.CART_KEY, allCarts);
         get().setCarts();
     },
-    deleteCart: async (key: string) => {
-        await deleteData(key);
+
+    // TODO Maybe this function should return the cart to update it in the detailsScreen
+    updateCartStatus: async (cartId: string, status: Status) => {
+        const allCarts = await getData(STORAGE_KEYS.CART_KEY);
+        let cart = allCarts.find((cart: Cart) => cart.id === cartId);
+        if ( cart ) {
+            cart.status = status;
+            await saveData(STORAGE_KEYS.CART_KEY, allCarts);
+            get().setCarts();
+        }
+    },
+    deleteCart: async (cartId: string) => {
+        let allCarts: Cart[] = await getData(STORAGE_KEYS.CART_KEY);
+        allCarts = allCarts.filter((cart: Cart) => cart.id!== cartId);
+        await saveData(STORAGE_KEYS.CART_KEY, allCarts);
         get().setCarts();
     }
 }));

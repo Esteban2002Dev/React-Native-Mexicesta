@@ -1,6 +1,4 @@
-import { Status } from "../enums/status.enum";
-import { it } from '@jest/globals';
-import { Item } from "./item.interface";
+import { Status } from '../enums/status.enum';
 
 export interface Cart {
     id: string;
@@ -8,5 +6,5 @@ export interface Cart {
     description: string;
     created_at: string;
     status: Status;
-    itemsLength?: number;
+    itemsLength: number;
 }

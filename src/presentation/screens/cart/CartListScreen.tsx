@@ -45,7 +45,7 @@ export function CartListScreen() {
                 </View>
                 <View style={styles.contentContainer}>
                     {allCarts && allCarts.map((cart, index) => (
-                        <CartItem cart={cart} index={index + 1} />
+                        <CartItem cart={cart} index={index + 1} key={cart.id} />
                     ))}
                 </View>
             </ScrollView>

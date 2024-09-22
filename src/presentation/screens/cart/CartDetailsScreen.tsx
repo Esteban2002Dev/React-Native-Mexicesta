@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React from 'react';
-import { Status } from '../../../data/enums/status.enum';
+import React, { useEffect } from 'react';
+import { Status } from '@enums/status.enum';
 import { Color_messages, Color_palette } from '@theme/Colors';
 import { fonts, globalStyles } from '@theme/globalStyles';
 import { BackgroundGradient } from '@components/BackgroundGradient';
@@ -9,11 +9,32 @@ import { IonIcon } from '@components/shared/IonIcon';
 import { ItemComponent } from '@components/shared/ItemComponent';
 import { useCartDetails } from '@hooks/cart/useCartDetails';
 import { useAppNavigation } from '@hooks/useAppNavigation';
+import { useCart } from '@store/cart-store';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
-    const { cart, currentIndex, loading, items } = useCartDetails(params?.cartId, params?.index);
+    const { cart, currentIndex, loading, items, total } = useCartDetails(params?.cartId, params?.index);
+    const { updateCartStatus } = useCart();
 
+    useEffect(() => {
+        if (!cart || !items?.length) return;
+        const hasPending = items.some(item => item.status === Status.PENDING);
+        const allSameStatus = items.every(item => item.status === items[0].status);
+        const allCompletedOrCancelled = items.every(item => 
+            item.status === Status.COMPLETED || item.status === Status.CANCELLED
+        );
+
+        if (allSameStatus) {
+            cart.status = items[0].status;
+            updateCartStatus(cart.id, items[0].status);
+        } else if (hasPending) {
+            cart.status = Status.PENDING;
+            updateCartStatus(cart.id, Status.PENDING);
+        } else if (allCompletedOrCancelled) {
+            cart.status = Status.COMPLETED;
+            updateCartStatus(cart.id, Status.COMPLETED);
+        }
+    }, [items, cart]);
 
     if (loading) {
         return (
@@ -98,6 +119,9 @@ export function CartDetailsScreen() {
                                 <Text style={styles.description}>
                                     {cart.description}
                                 </Text>
+                                <Text style={styles.description}>
+                                    Total: {total}
+                                </Text>
                             </View>
                             <View style={styles.rightSide}>
                                 {cart.status === Status.CANCELLED
@@ -113,7 +137,7 @@ export function CartDetailsScreen() {
                 </View>
                 <View style={styles.itemsContainer}>
                     <View>
-                        {items.map(item => <ItemComponent cartId={cart.id} item={item} />)}
+                        {items.map(item => <ItemComponent cartId={cart.id} item={item} key={item.id} showPriceInput={true} />)}
                     </View>
                 </View>
             </ScrollView>

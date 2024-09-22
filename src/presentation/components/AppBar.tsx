@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useAppNavigation } from '@hooks/useAppNavigation';
 import { IonIcon } from './shared/IonIcon';
 import { Color_palette } from '@theme/Colors';
 import BackButton from './BackButton';
 import { fonts } from '@theme/globalStyles';
+import { Popover } from './OptionsMenu';
 
 interface Props {
     title?: string;
@@ -12,25 +13,28 @@ interface Props {
 export function AppBar({
     title = `Mexi\nCesta`
 }: Props) {
-    const { navigation } = useAppNavigation();
+    const { navigation, route } = useAppNavigation();
+    const [popoverVisible, setPopoverVisible] = useState(false);
 
     return (
         <View>
             <View style={styles.appBarContainer}>
                 <View style={styles.leftSide}>
-                    {navigation.canGoBack() && (
+                    {route.name !== 'CartList' && navigation.canGoBack() && (
                         <BackButton />
                     )}
                 </View>
                 <View style={styles.rightSide}>
                     <Text style={styles.title}>{title}</Text>
                     <Pressable
-                    style={({pressed}) => ({
-                        opacity: pressed ? .7 : 1
-                    })}>
+                    style={({ pressed }) => ({
+                        opacity: pressed ? 0.7 : 1,
+                    })}
+                    onPress={() => setPopoverVisible(!popoverVisible)}>
                         <IonIcon name='ellipsis-vertical' color={Color_palette.dark} size={30} />
                     </Pressable>
                 </View>
+                <Popover visible={popoverVisible} onClose={() => setPopoverVisible(false)} />
             </View>
         </View>
     )
