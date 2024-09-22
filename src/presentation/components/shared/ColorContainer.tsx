@@ -33,7 +33,7 @@ export function ColorContainer({
             })}
             onPress={() => setBackgroundColor({ name, colors })}>
                 <View style={colorStyles.pressableContent}>
-                    <Text style={colorStyles.nameText}>{name}</Text>
+                    <Text numberOfLines={1} adjustsFontSizeToFit style={colorStyles.nameText}>{name}</Text>
                     <View style={colorStyles.colorContainer}>
                         {colors.map((color, index) => (
                             <View key={index} style={[colorStyles.colorBox, { backgroundColor: color }]}>

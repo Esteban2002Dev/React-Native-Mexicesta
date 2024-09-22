@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { BackgroundGradient } from '@components/BackgroundGradient';
 import { fonts, globalStyles } from '@theme/globalStyles';
@@ -13,7 +13,14 @@ import { useTheme } from '@store/themeCustomization/theme-store';
 
 export function VisualSettings() {
     const [background, setBackground] = useState<Color>(BackgroundColors[0]);
-    const { saveNewBackground } = useTheme();
+    const { saveNewBackground, background: backgroundColor } = useTheme();
+
+    useEffect(() => {
+        const customBackground = BackgroundColors.find(color => color.name === backgroundColor.name);
+        if (customBackground) {
+            setBackground(customBackground);
+        }
+    }, []);
 
     return (
         <View style={globalStyles.container}>
