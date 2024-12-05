@@ -5,12 +5,12 @@ import { IonIcon } from './IonIcon';
 import { Color_messages, Color_palette } from '@theme/Colors';
 
 export interface ToastProps {
-    visible: boolean;
-    title: string;
-    message: string;
+    visible?: boolean;
+    title?: string;
+    message?: string;
     icon?: string;
     type?: 'success' | 'info' | 'warning' | 'error';
-    duration: number;
+    duration?: number;
     onHide?: () => void;
 }
 

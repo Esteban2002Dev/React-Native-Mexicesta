@@ -7,6 +7,7 @@ import { Color_palette } from '@theme/Colors';
 import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { useTheme } from '@store/themeCustomization/theme-store';
+import { ToastProvider } from '@store/toast/context/ToastContext';
 
 
 export function App() {
@@ -21,9 +22,11 @@ export function App() {
   };
 
   return (
-    <NavigationContainer>
-      <StatusBar animated={true} backgroundColor={getBarColor()} barStyle="light-content" />
-      <StackNavigator />
-    </NavigationContainer>
+    <ToastProvider>
+      <NavigationContainer>
+        <StatusBar animated={true} backgroundColor={getBarColor()} barStyle="light-content" />
+        <StackNavigator />
+      </NavigationContainer>
+    </ToastProvider>
   );
 };
