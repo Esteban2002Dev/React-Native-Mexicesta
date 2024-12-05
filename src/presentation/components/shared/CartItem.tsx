@@ -6,6 +6,7 @@ import { Cart } from '@interfaces/cart.interfaces';
 import { StatusText } from './StatusText';
 import { useAppNavigation } from '@hooks/useAppNavigation';
 import { useCart } from '@store/cart-store';
+import { useToastContext } from '@store/toast/context/ToastContext';
 
 interface Props {
     cart: Cart;
@@ -18,8 +19,12 @@ export function CartItem({
 
     const { navigation } = useAppNavigation();
     const { deleteCart } = useCart();
+
+    const { showToast } = useToastContext();
+
     const scaleAnim = useRef(new Animated.Value(1)).current;
     const progressAnim = useRef(new Animated.Value(0)).current;
+    
     let longPressTimeout: any;
 
     const handlePressIn = () => {
@@ -38,6 +43,14 @@ export function CartItem({
 
         longPressTimeout = setTimeout(() => {
             deleteCart(cart.id);
+            console.log('CARRITO ELIMINADO')
+            showToast({
+                title: `Carrito eliminado!`,
+                message: `Se eliminó el carrito '${cart.title}' correctamente`,
+                duration: 3500,
+                icon: 'trash',
+                type: 'error'
+            });
         }, 1500);
     };
 

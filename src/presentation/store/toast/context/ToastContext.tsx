@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { Toast, ToastProps } from '@components/shared/Toast';  // Assuming you have the Toast component
-import { Types } from '@enums/ToastType';  // Assuming you have your Types enum for toast types
+import { Toast, ToastProps } from '@components/shared/Toast';
+import { Types } from '@enums/ToastType';
 
 // Type for Toast context
 interface ToastContextType {
@@ -41,7 +41,6 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <ToastContext.Provider value={{ showToast, hideToast }}>
             {children}
-            {/* The Toast component will be rendered globally */}
             <Toast {...{ ...toastConfig, visible, onHide: hideToast }} />
         </ToastContext.Provider>
     );
