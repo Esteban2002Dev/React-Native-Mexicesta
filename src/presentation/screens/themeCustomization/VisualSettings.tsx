@@ -10,10 +10,23 @@ import { ColorContainer } from '@components/shared/ColorContainer';
 import { BackgroundColors } from '../../../data/BackgroundColors';
 import { Color } from '@interfaces/Color';
 import { useTheme } from '@store/themeCustomization/theme-store';
+import { useToastContext } from '@store/toast/context/ToastContext';
 
 export function VisualSettings() {
     const [background, setBackground] = useState<Color>(BackgroundColors[0]);
     const { saveNewBackground, background: backgroundColor } = useTheme();
+    const { showToast } = useToastContext();
+
+    const saveTheme = () => {
+        saveNewBackground(background);
+        showToast({
+            title: `Tema modificado!`,
+            message: `Se modificó el tema correctamente.`,
+            duration: 3500,
+            icon: 'checkmark-circle',
+            type: 'success'
+        });
+    }
 
     useEffect(() => {
         const customBackground = BackgroundColors.find(color => color.name === backgroundColor.name);
@@ -40,7 +53,7 @@ export function VisualSettings() {
                     </View>
                     <PrimaryButton
                         label='Guardar configuración'
-                        onPress={() => saveNewBackground(background)}
+                        onPress={saveTheme}
                         color={Color_palette.dark}
                         children={<IonIcon name='color-palette' />}
                     />

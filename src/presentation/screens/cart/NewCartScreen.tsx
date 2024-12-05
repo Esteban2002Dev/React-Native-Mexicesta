@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ItemComponent } from '@components/shared/ItemComponent';
 import { useAppNavigation } from '@hooks/useAppNavigation';
 import { useTheme } from '@store/themeCustomization/theme-store';
+import { useToastContext } from '@store/toast/context/ToastContext';
 
 /**
  * * UUID Documentation
@@ -45,6 +46,8 @@ export function NewCartScreen() {
 
     const { saveGroupItems } = useItem();
     const { background, setBackground } = useTheme();
+
+    const { showToast } = useToastContext();
 
     useEffect(() => {
         setBackground();
@@ -95,6 +98,13 @@ export function NewCartScreen() {
         };
         createCart(cart);
         saveGroupItems({cartId: id, items});
+        showToast({
+            title: 'Carrito creado!',
+            message: 'Se agregó el carrito correctamente',
+            duration: 3000,
+            icon: 'checkmark-circle',
+            type: 'success'
+        });
         navigation.navigate('CartList');
     };
 

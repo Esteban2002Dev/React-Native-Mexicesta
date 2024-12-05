@@ -11,6 +11,7 @@ import { useCartDetails } from '@hooks/cart/useCartDetails';
 import { useAppNavigation } from '@hooks/useAppNavigation';
 import { useCart } from '@store/cart-store';
 import { useTheme } from '@store/themeCustomization/theme-store';
+import { useToastContext } from '@store/toast/context/ToastContext';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
@@ -18,6 +19,7 @@ export function CartDetailsScreen() {
     const { updateCartStatus } = useCart();
 
     const { background, setBackground } = useTheme();
+    const { showToast } = useToastContext();
 
     useEffect(() => {
         setBackground();
@@ -42,6 +44,32 @@ export function CartDetailsScreen() {
             updateCartStatus(cart.id, Status.COMPLETED);
         }
     }, [items, cart]);
+
+    useEffect(() => {
+        if (!cart || !items?.length) return;
+        const allSameStatus = items.every(item => item.status === items[0].status);
+        const allCompletedOrCancelled = items.every(item => 
+            item.status === Status.COMPLETED || item.status === Status.CANCELLED
+        );
+
+        if (allSameStatus) {
+            showToast({
+                title: `Carrito cancelado!`,
+                message: `Se ha cancelado todo el carrito!`,
+                duration: 3000,
+                icon: 'trash',
+                type: 'error'
+            });
+        } else if (allCompletedOrCancelled) {
+            showToast({
+                title: `Carrito completado!`,
+                message: `Haz completado todos los productos de este carrito, felicidades!`,
+                duration: 3000,
+                icon: 'checkmark-circle',
+                type: 'success'
+            });
+        }
+    }, [cart?.status]);
 
     if (loading) {
         return (
