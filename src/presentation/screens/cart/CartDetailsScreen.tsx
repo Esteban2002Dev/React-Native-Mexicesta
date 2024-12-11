@@ -12,6 +12,8 @@ import { useAppNavigation } from '@hooks/useAppNavigation';
 import { useCart } from '@store/cart-store';
 import { useTheme } from '@store/themeCustomization/theme-store';
 import { useToastContext } from '@store/toast/context/ToastContext';
+import { ErrorScreen } from '@screens/utility/ErrorScreen';
+import { LoadingScreen } from '@screens/utility/LoadingScreen';
 
 export function CartDetailsScreen() {
     const { params } = useAppNavigation<'CartDetails'>();
@@ -73,44 +75,16 @@ export function CartDetailsScreen() {
 
     if (loading) {
         return (
-            <View style={globalStyles.container}>
-                <BackgroundGradient />
-                <View style={{
-                    height: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <Text style={{
-                        fontFamily: fonts.bold,
-                        color: Color_palette.dark,
-                        fontSize: 30,
-                        textAlign: 'center'
-                    }}>Cargando datos ...</Text>
-                </View>
-            </View>
+            <LoadingScreen />
         );
     }
 
     if (!cart) {
         return (
-            <View style={globalStyles.container}>
-                <BackgroundGradient />
-                <View style={{
-                    height: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <Text style={{
-                        fontFamily: fonts.bold,
-                        color: Color_palette.dark,
-                        fontSize: 30,
-                        textAlign: 'center'
-                    }}>No se encontró el carrito {params!.cartId}.</Text>
-                    <IonIcon name='sad' color={Color_palette.dark} size={30} />
-                </View>
-            </View>
+            <ErrorScreen cartId={params!.cartId} />
         );
     }
+
     if (!items) {
         return (
             <View style={globalStyles.container}>

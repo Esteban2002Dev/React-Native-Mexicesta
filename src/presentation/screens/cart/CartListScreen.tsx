@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Color_palette } from '@theme/Colors';
 import { useAppNavigation } from '@hooks/useAppNavigation';
@@ -11,19 +11,27 @@ import { CartItem } from '@components/shared/CartItem';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useCart } from '@store/cart-store';
 import { useTheme } from '@store/themeCustomization/theme-store';
+import { LoadingScreen } from '@screens/utility/LoadingScreen';
 
 export function CartListScreen() {
     const { navigation } = useAppNavigation();
     const { setCarts, allCarts } = useCart();
     const { background, setBackground } = useTheme();
 
+    const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
         setCarts();
+        setLoading(false);
     }, []);
 
     useEffect(() => {
         setBackground();
     }, [setBackground]);
+
+    if (loading) {
+        <LoadingScreen />
+    }
 
     return (
         <View style={globalStyles.container}>
