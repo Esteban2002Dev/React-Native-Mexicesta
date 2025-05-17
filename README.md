@@ -3,6 +3,10 @@
 # Mexicesta
 >**Mobile App**: Developed By L. Esteban.
 
+**Landing Page:**  
+[https://esteban2002dev.github.io/Angular-Mexicesta-landingpage/](https://esteban2002dev.github.io/Angular-Mexicesta-landingpage/)
+
+
 **Mexicesta** is a mobile app designed to help you organize your shopping effortlessly. Perfect for when you're offline, Mexicesta allows you to create and manage shopping carts with an unlimited number of items.
 
 ## Why Does Mexicesta Exist?
