@@ -13,7 +13,7 @@ interface Props {
     end?: { x: number, y: number };
     style?: object;
 }
-export  function BackgroundGradient({
+export function BackgroundGradient({
     colors = [
         Background_colors.pistache.base,
         Background_colors.sky.base,

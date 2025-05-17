@@ -54,7 +54,7 @@ export function CartDetailsScreen() {
             item.status === Status.COMPLETED || item.status === Status.CANCELLED
         );
 
-        if (allSameStatus) {
+        if (allSameStatus && items[0].status === Status.CANCELLED) {
             showToast({
                 title: `Carrito cancelado!`,
                 message: `Se ha cancelado todo el carrito!`,
